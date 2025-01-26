@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <!-- 包含Spring Boot对logback日志的默认的配置 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <property name="LOG_FILE" value="${LOG_FILE:-${LoG_FILE:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/spring.log}" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <!-- 重写了spring boot框架 org/springframework/boot/logging/logback/console-appender.xml 的配置 -->
+    <appender name="TIME_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 传参，命名的格式 : 加上了对对应的产生日志的日期，并且区别dev和pro -->
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <!-- 保留的历史日志到一个月前 -->
+            <maxHistory>30</maxHistory>
+            <!-- Spring boot在默认的情况下，日志的文件10M时候，会切分日志文件，这样设置的日志文件会在100M的时候切分日志 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 日志的控制台输出和文件输出 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="TIME_FILE" />
+    </root>
+</configuration>
+
+<!--
+  继承spring boot logback的设置，可以在application.yml或者application.properties中设置logging.*的属性
+  重写了默认的配置，设置的日志文件的大小在100M时，按照日期划分如下
+      my.2018-08-01.0 80M
+      my.2018-08-01.1 10M
+      my.2018-08-02.0 56M
+      my.2018-08-03.0 53M
+      .....
+-->

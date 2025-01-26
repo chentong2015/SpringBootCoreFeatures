@@ -1,0 +1,228 @@
+html, body {
+    /*
+    background: url("../images/.png") center no-repeat !important;
+    background-position: center center;
+    */
+    background: #e0efe4 !important;
+}
+
+.mystyleHeader {
+    font-family: cursive !important;
+    font-size: 19px !important;
+}
+
+.mystyleSliderImage {
+    position:absolute;
+    height:40px;
+    font-family: Oswald,sans-serif;
+    font-size:32px;
+    font-weight:200;
+    line-height:1.2;
+    text-align:center;
+    background-color:rgba(255,188,5,0.8);
+}
+
+span {
+    /* font-family: cursive !important; */
+    font-size: 16px !important;
+}
+
+.ui.form .fields {
+    margin: 0 !important;
+}
+
+/* define the class important */
+.mystyle-padded-nav-mini {
+    padding-top: 0.2em !important; 
+    padding-bottom: 0.2em !important;
+}
+
+.mystyle-padded-div-medium {
+    padding-top: 1em !important;
+    padding-bottom: 1em !important;
+}
+
+.mystyle-padded-div-large {
+    padding-top: 4em !important;
+    padding-bottom: 4em !important;
+}
+
+.mystyle-padded-footer-max {
+    padding-top: 5em !important;
+    padding-bottom: 3em !important;
+}
+
+.mystyle-padded-a-mini {
+    padding: 0.3em !important;
+}
+
+.mystyle-padded-div-small {
+    padding: 0.5em !important;
+}
+
+.mystyle-padded-div-large {
+    padding: 1em !important;
+}
+
+/* opacity */
+.mystyle-opacity-tiny {
+    opacity: 0.6 !important;
+}
+
+/* margin  */
+.mystyle-margin-a-tiny {
+    margin-top: 0.3em !important; 
+    margin-bottom: 0.3em !important;
+}
+
+.mystyle-margin-div-tiny {
+    margin-top: 1em !important; 
+    margin-bottom: 1em !important;
+    margin-left: 1em !important;
+}
+
+.mystyle-margin-div-small {
+    margin-bottom: 2em !important; 
+}
+
+.mystyle-margin-div-top {
+    margin-top: 10em !important;
+}
+
+/* display */
+.mystyle-inline-block {
+  display: inline-block !important;
+}
+
+/* Text Style */
+.mystyle-text {
+    font-weight: 300 !important;
+    letter-spacing: 1px !important;
+    line-height: 1.8;
+}
+
+.m-text-thin {
+    font-weight: 300 !important;
+}
+
+.m-text-spaced {
+    letter-spacing: 1px !important;
+}
+
+.m-text-lined {
+    line-height: 1.8;
+}
+
+.mystyle-text-a {
+    color: #333 !important;
+    font-weight: 300 !important;
+}
+
+.mystyle-comment {
+    color: #00B5AD !important;
+}
+
+/* 重写评论区的样式 */
+.ui.threaded.comments .comment .comments{
+    margin: 0em 0 0em 0.2em !important;
+    padding: 2em 0 2em 2em !important;
+}
+
+.mystyle-text-content-p {
+    padding-left: 3em !important;
+    padding-right: 3em !important;
+    padding-top: 1.5em !important;
+}
+
+/* Container */
+.mystyle-container {
+    max-width: 90em !important;
+    margin: auto; /* center */
+}
+
+/* Container */
+.mystyle-container-small {
+    max-width: 75em !important;
+    margin: auto; /* center */
+}
+
+/* Button */
+.mystyle-button-bar-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1em !important;
+}
+
+/* Mobiel hide button : 使用媒体查询，判断屏幕 */
+.mystyle-mobile-show-style {
+    display: none !important;
+}
+
+.mystyle-mobile-hide-style {
+    display: block !important;
+}
+
+/* 判断是否是处在手机端显示 */
+@media screen and (max-width: 768px) {
+    .ui.padded.segment {
+        padding: 1em 0 1em 0 !important;
+    }
+
+    .mystyle-mobile-hide-style {
+        display: none !important;
+    }
+
+    .mystyle-mobile-show-style {
+        display: block !important;
+    }
+
+    .mystyle-text-content-p {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .mysytle-mobile-input-wide {
+        width: 100% !important;
+    }
+
+    .mystyle-mobile-content-clear {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+/* input text */
+.mystyle-input-size{
+    width: 270px !important;
+}
+
+.mystyle-textarea-margin {
+    margin-bottom: 1.5em !important;
+}
+
+.mystyle-margin-bottom-mini {
+    margin-bottom: 0.5em !important;
+}
+
+/* Shadow : webit set for all the browser */
+.mystyle-shadow-nav {
+    -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Position */
+.mystyle-div-position {
+    position: fixed !important;
+    z-index: 2 !important; /* 数字与越大，则越上层显示 */
+}
+
+.mystyle-div-bottom-right {
+    bottom: 0 !important;
+    margin-bottom: 20px !important;
+    right: 0 !important;
+}
+
+.mystyle-type-margin {
+    margin-top: 8px !important;
+}

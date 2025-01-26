@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <title>Blog Tong</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+        <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+    </head>
+
+    <body>
+        <nav class="ui inverted attached segment mystyle-padded-nav-mini mystyle-shadow-nav">
+            <div class="ui container">
+                <div class="ui inverted secondary stackable menu">
+                    <h2 class="ui teal header item"> Blog Tong</h2>
+                    <a href="#" th:href="@{/}" class="item mystyle-mobile-hide-style mobile-item"><i class="home icon"></i> <span>首页</span></a>
+                    <a href="#" th:href="@{/types/-1}" class="item mystyle-mobile-hide-style mobile-item"><i class="idea icon"></i> <span>分类</span></a>
+                    <a href="#" th:href="@{/tags/-1}" class="item mystyle-mobile-hide-style mobile-item"><i class="tags icon"></i> <span>标签</span></a>
+                    <a href="#" th:href="@{/archives}" class="item mystyle-mobile-hide-style mobile-item"><i class="tasks icon"></i> <span>时间线</span></a>
+                    <a href="#" class="active item mystyle-mobile-hide-style mobile-item"><i class="user icon"></i> <span>关于我</span></a>
+                    <div class="right item mystyle-mobile-hide-style mobile-item">
+                        <form name="search" action="#" th:action="@{/search}" method="post">
+                            <!-- <div class="ui icon inverted transparent input"> -->
+                            <div class="ui icon input">
+                                <input name="query" type="text" placeholder="search..." class="mystyle-input-size" th:value="${query}">
+                                <i onclick="document.forms['search'].submit()" class="search link icon"></i> <!-- JS函数提交页面的表单 -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="ui menu toggle black icon button mystyle-button-bar-right mystyle-mobile-show-style">
+                <i class="sidebar icon"></i>
+            </a>
+        </nav>
+        <div class="mystyle-container-small mystyle-padded-div-medium">
+            <div class="ui container">
+                <div class="ui stackable grid"> 
+                    <div class="eight wide column">
+                        <img src="../static/images/me.png" th:src="@{/images/me.png}" alt="" class="ui rounded image" style="width: 460px; box-shadow: 1px 1px 5px 5px #b3c8ba;">
+                    </div>
+                    <div class="eight wide column">
+                        <div class="ui top attached segment">
+                            <div class="ui header" style="text-align: center;">开发者简介</div>
+                        </div>
+                        <div class="ui attached segment">
+                            <p class="mystyle-text"> CTONG, 极客,  软件开发工程师,  酷爱编程的非典型理工男， 熟悉各种编程语言和开发环境，不断探索新的技术和开发思想 </p>
+                            <b class="mystyle-text"> <strong> 平凡之路， 每个人都值得成为更优秀的自己 </strong> </b>
+                        </div>
+                        <div class="ui attached segment" style="margin-top: 10px; margin-bottom: 10px;">
+                            <div class="ui orange basic label left pointing" style="margin-top: 3px;" th:each="tag : ${about.tags}" th:text="${tag}">TAG</div>
+                        </div>
+                        <div class="ui attached segment" style="margin-bottom: 10px;">
+                            <div class="ui teal basic label left pointing mystyle-margin-bottom-mini" th:each="code : ${about.codes}" th:text="${code}">Java</div>
+                        </div>
+                        <div class="ui bottom attached segment">
+                            <div class="ui githubLien circular icon button" data-content="chen2016tong@gmail.com" data-position="bottom center"><i class="github icon"></i></div>
+                            <div class="ui qqLien circular icon button" data-content="QQ : 2424082745" data-position="bottom center"><i class="qq icon"></i></div>
+                            <div class="ui mailLien circular icon button" data-content="chen2016tong@gmail.com" data-position="bottom center"><i class="mail icon"></i></div>
+                        </div>
+                        <!-- 弹出的微信的二维码信息 -->
+                        <div class="ui wechatQR flowing popup transition hidden">                        
+                            <div class="ui orange basic label">
+                                <div class="ui images" style="font-size: inherit"> <!-- inherit 继承上级的演样式 -->
+                                    <div class="image center aligned">
+                                        <img src="../static/images/QRcode.jpg" th:src="@{/images/QRcode.jpg}" alt="" class="ui image rounded bordered" style="width: 100px">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4 class="ui horizontal divider header mystyle-margin-div-small">我的视频分享</h4>
+        <div class="mystyle-container-small" style="padding-bottom: 2.5em !important;">
+            <div class="ui container">
+                <div class="ui stackable grid">
+                    <!-- image of me -->
+                    <div class="five wide column"> 
+                        <video width="320px" controls>
+                            <source src="../static/video/utc.mp4" th:src="@{/video/utc.mp4}" type="video/mp4">
+                        </video>
+                        <h4 style="margin-top: 3px !important;"> 我挚爱的母校 </h4>         
+                    </div>
+                    <div class="five wide column">
+                       <!--
+                        <video width="320px" controls>
+                            <source src="../static/video/fly.mp4" th:src="@{/video/fly.mp4}" type="video/mp4">
+                        </video>
+                        <h4 style="margin-top: 3px !important;"> 游学欧洲之学业篇 (创作中...) </h4>
+                        -->
+                    </div>
+                    <div class="five wide column">
+                    	<!--
+                        <video width="320px" controls>
+                            <source src="../static/video/trip.mp4" th:src="@{/video/trip.mp4}" type="video/mp4">
+                        </video>
+                        <h4 style="margin-top: 3px !important;"> 游学欧洲之旅游篇 (创作中...) </h4>
+                     	-->
+                    </div>
+                </div>
+                <div class="ui stackable grid">
+                    <!-- image of me -->
+                    <!--
+                    <div class="five wide column">
+                        <video width="320px" controls>
+                            <source src="../static/video/bgmusic.mp4" th:src="@{/video/bgmusic.mp4}" type="video/mp4">
+                        </video>
+                        <h4 style="margin-top: 3px !important;"> 炫酷背景音乐的制作 </h4>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+        <footer th:include="_fragments :: footer" class="ui inverted vertical segment mystyle-padded-footer-max"></footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+        <script>
+            // 点击Menu按钮，触发标签的样式，显示或者隐藏
+            $('.menu.toggle').click(function() {
+               $('.mobile-item').toggleClass('mystyle-mobile-hide-style');
+            });
+            // Show wechat information
+            $('.wechat').popup( {
+                popup : $('.wechatQR'),
+                on: 'hover',
+                position: 'bottom center'
+            });
+            // 非点击的情况下，显示QQ的信息
+            $('.githubLien').popup();
+            $('.qqLien').popup();
+            $('.mailLien').popup();
+        </script>
+
+    </body>
+</html>

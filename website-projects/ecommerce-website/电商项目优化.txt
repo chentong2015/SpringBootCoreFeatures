@@ -1,0 +1,71 @@
+TODO. 代码逻辑层面
+装配时间，应该放在减少库存之后
+Assembling a computer requires manual work, assume that this work requires 15 seconds
+Thread.sleep(15000);
+OrderResponse response = assemble(order);
+
+计算的是从Server端接受到信息，到Order完全结束
+而不是统计Order关联
+public void processOrderAsync(OrderRequest order) throws ApplicationProcessException, InterruptedException {
+long startTime = System.currentTimeMillis();
+
+一个客户不一定只有一个order， 统计的是连接的客户
+ServerMonitorSystem.increaseNumberOfConnectedClients();
+
+增加统计的过程中是原子的 ==> 在order的不同阶段进行统计(原子操作)
+ServerMonitorSystem.decreaseNumberOfOrdersWaiting();
+ServerMonitorSystem.increaseNumberOfOrdersProcessing();
+
+该Server的mapping的问题
+可以使用HashMap<String, BaseComponentSerive> 来存储映射关系 
+@Autowired
+public OrderControllerService(CpuService cpuService, GpuService gpuService,,,) {
+        this.cpuService = cpuService;
+        this.gpuService = gpuService;
+        ...
+ }
+
+TODO. 后端设计层面
+嵌套数据库的位置，重新定义相对位置 
+
+为什么使用Ajax向client本地发送请求，而不是向server端发送更新的请求 ?
+  ==> 可以将从server获取的信息缓存到本地，判断order status是否结束，避免向server端发送过多的请求
+  ==> Ajax获取更新的信息，直接加载在页面，没有办法缓存在client端本地 
+  ==> 通过Ajax request可以使得UI前端和后端完全分离，一种隔离的设计思想
+
+后期用户如何查询订单的信息 ?
+　　==> 在Server端存储订单号对应的信息，只需要输入订单号便可以查询，提供搜索
+
+如果发送的request丢失怎么办 ? 
+　　==> OrderId和userId关联和绑定 
+
+为什么采用前后端分离的设计 ?            
+  ==> 前端提供User UI, 后端部署多个Service服务
+  ==> 如果不使用前后端分离的架构： 可以使用Spring SSE事件流机制 !!!
+
+如果前端的的请求量过大过大, 如何处理 ?   
+  ==> 负载均衡(Nginx, Aglo) + JVM缓存 + Redis缓存
+
+如果server挂掉了怎么办 ?               
+  ==> 搭建集群，在server重启的时候，确定是否有新的request没有处理
+
+JVM Lock锁在分布式系统中会失效，如何处理
+  ==> 分布式锁，搭建Zookeeper(集群)
+
+JVM 性能调优
+  ==> 计算每个订单产生的Order object对象大小 合理分离堆栈的大小
+
+项目没有引入或者最少的引入第三方的类库
+
+
+TODO. 前端UI设计层面
+1. 前端没有做商品的搜索 
+   电商页面的商品快速筛选Filter, 可以使用Redis的set数据结构
+
+2. CSS的格式不规范，或者使用Sass来实现
+
+3. ServerOrderStatusCache & ServerMonitorSystem 需要支持并发环境下的线程安全
+
+4. LocalComponentCache不是一个安全的类型： 前面线程在set设置的时候，可能后面有线程在读取
+
+

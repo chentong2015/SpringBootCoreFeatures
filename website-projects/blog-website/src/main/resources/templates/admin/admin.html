@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <title>Blog Tong</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    </head>
+
+    <body> <!-- Naviogatoion Bar ： stackable 注意响应手机移动端, 可堆叠的grid, 支持手机端的反转显示  -->
+        <nav class="ui inverted attached segment mystyle-padded-nav-mini" >
+            <div class="ui container">
+                <div class="ui inverted secondary stackable menu"> 
+                    <h2 class="ui teal header item"> 后台管理界面 </h2>
+                    <!-- 在移动端的时候隐藏掉对应的icon -->
+                    <a href="#" th:href="@{/admin/admin}" class="active item mystyle-mobile-hide-style mobile-item"><i class="home icon"></i> <span>博客</span> </a>
+                    <a href="#" th:href="@{/admin/types}" class="item mystyle-mobile-hide-style mobile-item"><i class="idea icon"></i> <span>分类</span></a>
+                    <a href="#" th:href="@{/admin/tags}" class="item mystyle-mobile-hide-style mobile-item"><i class="tags icon"></i> <span>标签</span></a>
+                    <div class="right menu mystyle-mobile-hide-style mobile-item">
+                        <div class="ui dropdown item"> <!-- Drop down Menu Item -->
+                            <div class="text">
+                                <img src="https://picsum.photos/100/100?image=1005" th:src="@{${session.user.avatar}}" class="ui avatar image">
+                                <span th:text="${session.user.nickname}"> 陈桐 </span>
+                            </div>
+                            <i class="ui dropdown icon"> </i>
+                            <div class="ui menu">
+                                <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+                            </div>
+                        </div> <!-- fin of the dropdown -->
+                    </div>
+                </div>
+            </div>
+            <!-- Nar menu Button : position absolu -->
+            <a href="#" class="ui menu toggle black icon button mystyle-button-bar-right mystyle-mobile-show-style">
+                <i class="sidebar icon"></i>
+            </a>
+        </nav>
+        <!-- 页面的2级导航标签 Menu -->
+        <div class="ui attached pointing menu">
+            <div class="ui container">
+                <div class="right menu"> <!-- 使用Menu移动到页面的右边 -->
+                    <a href="#" th:href="@{/admin/admin/edit}" class="item">新增</a>
+                    <a href="#" class="active compact teal item">列表</a>
+                </div>
+            </div>  
+        </div>
+        <!-- Medium Part Content -->
+        <div class="stackable mystyle-container-small mystyle-padded-div-medium">
+            <div class="ui container">
+                <!-- 编辑博客的操作提示 : thymeleaf module的函数一定不能写错 -->
+                <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                    <i class="close icon"> </i>
+                    <div class="header"> 提示 ：</div>
+                    <p th:text="${message}"> 恭喜，操作成功 </p>
+                </div>
+
+                <div class="stackable ui secondary segment form">  <!-- 页面的整个Form表单的提交 -->
+                  <input type="hidden" name="page" >
+                  <div class="fields">
+                      <div class="field mysytle-mobile-input-wide mystyle-margin-bottom-mini">
+                        <input type="text" name="title" placeholder="标题">
+                      </div>
+                      <!-- 针对分类的选择做一个清除的操作 -->
+                      <div class="field mysytle-mobile-input-wide mystyle-margin-bottom-mini">
+                          <div class="ui labeled action input">
+                              <div class="ui type selection dropdown">
+                                  <input type="hidden" name="typeId">
+                                  <i class="dropdown icon"></i>
+                                  <div class="default text">分类</div>
+                                  <div class="menu">  <!-- 从后台拿到的types的变量数据 -->
+                                      <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">错误日志</div>
+                                  </div>
+                              </div>
+                              <button id="clear-btn" class="ui teal button">Clear</button>
+                          </div>
+                      </div>
+                      <div class="field">
+                          <div class="ui checkbox"> <!-- 使用for和id一起关联，同时选择 -->
+                              <input type="checkbox" id="isRecommend" name="isRecommend" class="hidden">
+                              <label for="isRecommend" style="margin-top: 0.6em">推荐</label>
+                          </div>
+                      </div>
+                      <div class="field">
+                          <div class="ui checkbox"> <!-- 使用for和id一起关联，同时选择 -->
+                              <input type="checkbox" id="isPublished" name="isPublished" class="hidden">
+                              <label for="isPublished" style="margin-top: 0.6em">发布</label>
+                          </div>
+                      </div>
+                      <div class="field">
+                          <button type="button" id="search-btn" class="ui mini teal basic button" style="margin-top: 0.3em;"> <i class="search icon"></i>搜索</button>
+                      </div>
+                      <div class="field"> <!-- 显示表中的总的条目数 -->
+                          <div style="margin-top: 0.6em; margin-left: 1em;">
+                              共 <h3 class="ui orange header mystyle-inline-block" th:text="${page.totalElements}"> 1 </h3> 个博客
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div id="table-container"> <!-- Table Content -->
+                    <table th:fragment="blogList" class="ui compact teal table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>标题</th>
+                                <th>类型</th>
+                                <th>推荐</th>
+                                <th>发布</th>
+                                <th>更新时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody> <!--  遍历读取后端获得的数据，显示在前端 -->
+                            <tr th:each="blog, iterStat : ${page.content}">
+                                <td th:text="${iterStat.count}">1</td>
+                                <td th:text="${blog.title}">学习动力手册</td>
+                                <td th:text="${blog.type.name}">认知升级</td> <!-- **** 变量一定不能使用含大写字母的变量 **** -->
+                                <td th:text="${blog.recommend}? '是':'否'">是</td>
+                                <td th:text="${blog.published}? '发布':'草稿'">是</td>
+                                <td th:text="${blog.updateTime}">2018-09-26 09:25</td>
+                                <td>
+                                    <a href="#" th:href="@{/admin/admin/{id}/edit(id=${blog.id})}" class="ui mini teal basic button"> 编辑 </a>
+                                    <a href="#" th:href="@{/admin/admin/{id}/delete(id=${blog.id})}" class="ui mini red basic button"> 删除 </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="7">  <!-- 合并单元格 -->
+                                    <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
+                                        <a onclick="page(this)" th:attr="data-page=${page.number}-1" class="item" th:unless="${page.first}"> 上一页 </a>
+                                        <a onclick="page(this)" th:attr="data-page=${page.number}+1" class="item" th:unless="${page.last}"> 下一页 </a>
+                                    </div>
+                                    <a href="#" th:href="@{/admin/admin/edit}" class="ui mini right floated teal basic button">新增</a>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <footer th:include="admin/_fragments :: footer" class="ui inverted vertical segment mystyle-padded-footer-max"></footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+        <script>
+            // 点击Menu按钮，触发标签的样式，显示或者隐藏
+            $('.menu.toggle').click(function() {
+               $('.mobile-item').toggleClass('mystyle-mobile-hide-style');
+            })
+            // 初始化下拉菜单的组件
+            $('.ui.dropdown').dropdown({
+                on: 'hover'
+            });
+
+            // JS的初始化，可以关闭掉提示的消息 <div>
+            $('.message .close').on('click', function () {
+                $(this).closest('.message').transition('fade');
+            });
+
+            // 使用button清除掉选择框中的数据
+            $('#clear-btn').on('click', function () {
+                $('.ui.type.dropdown').dropdown('clear');
+            });
+
+            // 定义JS函数，取值和赋值的操作
+            function page(obj) {
+                // 拿到data-page=里面的值，赋值到input中的值
+                $("[name='page']").val($(obj).data("page"));
+                loadData();
+            }
+
+            // Search按钮的点击事件 : 搜索的时候需要清除掉该page下面的值数据
+            $('#search-btn').click(function () {
+                $("[name='page']").val(0);
+                loadData();
+            });
+
+            // 使用Ajax请求进行加载数据, 数据来自于form表单的input内容
+            function loadData() {
+                // Load data in a Div: 拿到页面的数据 复选框的选择
+                $("#table-container").load(/*[[@{/admin/admin/search}]]*/"/admin/admin/search", {
+                    title : $("[name='title']").val(),
+                    typeId : $("[name='typeId']").val(),
+                    recommend : $("[name='isRecommend']").prop('checked'),
+                    published : $("[name='isPublished']").prop('checked'),
+                    page : $("[name='page']").val()
+                })
+            }
+        </script>
+
+    </body>
+</html>

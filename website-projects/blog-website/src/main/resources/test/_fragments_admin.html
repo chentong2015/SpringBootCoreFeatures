@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head th:fragment="headAdmin(title)">
+        <meta charset="utf-8" />
+        <title th:replace="${title}"></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+        <link rel="stylesheet" href="../../static/css/typo.css" th:href="@{/css/typo.css}">
+        <link rel="stylesheet" href="../../static/css/animate.css" th:href="@{/css/animate.css}">
+        <link rel="stylesheet" href="../../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+        <link rel="stylesheet" href="../../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    </head>
+    <body>
+
+        <!-- Naviogatoion Bar ： stackable 注意响应手机移动端, 可堆叠的grid, 支持手机端的反转显示  -->
+        <nav th:fragment="menuBarAdmin(n)" class="ui inverted attached segment mystyle-padded-nav-mini" >
+            <div class="ui container">
+                <div class="ui inverted secondary stackable menu">
+                    <h2 class="ui teal header item"> 管理后台界面 </h2>
+                    <!-- 在移动端的时候隐藏掉对应的icon -->
+                    <a href="#" th:href="@{/admin/admin}" class="item mystyle-mobile-hide-style mobile-item" th:classappend="${n==1}? 'active'"><i class="home icon"></i> 博客</a>
+                    <a href="#" th:href="@{/admin/types}" class="item mystyle-mobile-hide-style mobile-item" th:classappend="${n==2}? 'active'"><i class="idea icon"></i> 分类</a>
+                    <a href="#" class="item mystyle-mobile-hide-style mobile-item" th:classappend="${n==3}? 'active'"><i class="tags icon"></i> 标签</a>
+                    <div class="right menu mystyle-mobile-hide-style mobile-item">
+                        <div class="ui dropdown item"> <!-- Drop down Menu Item -->
+                            <div class="text">
+                                <img src="https://picsum.photos/100/100?image=1005" alt="" class="ui avatar image"> 陈桐
+                            </div>
+                            <i class="ui dropdown icon"> </i>
+                            <div class="ui menu">
+                                <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+                            </div>
+                        </div> <!-- fin of the dropdown -->
+                    </div>
+                </div>
+            </div>
+            <!-- Nar menu Button : position absolu -->
+            <a href="#" class="ui menu toggle black icon button mystyle-button-bar-right mystyle-mobile-show-style">
+                <i class="sidebar icon"></i>
+            </a>
+        </nav>
+
+        <!-- Footer Part of the page -->
+        <footer th:fragment="footer" class="ui inverted vertical segment mystyle-padded-footer-max">
+            <div class="ui center aligned container">
+                <!-- 16 parts of the width : 3 3 3 4 divided with line -->
+                <div class="ui inverted divided stackable grid">
+                    <div class="three wide column">
+                        <div class="ui inverted link list">  <!-- link | -->
+                            <a href="#" class="item">
+                                <img src="../../static//images/QRcode.jpg" th:src="@{/images/QRcode.jpg}" class="ui rounded image" alt="" style="width: 100px">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">最新博客</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">用户故事</a>
+                            <a href="#" class="item">用户故事</a>
+                            <a href="#" class="item">用户故事</a>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">联系我</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item"><i class="phone icon"></i>+33 667233690</a>
+                            <a href="#" class="item"><i class="mail icon"></i> chen2016tong@gmail.com</a>
+                            <a href="#" class="item"><i class="weixin icon"></i> wechat : ct1872302197</a>
+                        </div>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui inverted header">坚持创作：一周至少写一篇技术文章</h4>
+                        <div class="ui inverted link list mystyle-opacity-tiny">
+                            这是我的个人网站博客，分享关于编程，写作和人生的感悟。希望能借此帮助更多的人，一起学习交流，从菜鸟变成未来的大神
+                        </div>
+                    </div>
+                </div>
+                <!-- Bottom line -->
+                <div class="ui inverted section divider"></div>
+                <a class="m-text-spaced mystyle-opacity-tiny"> Copyright@ 2018-2019 Web Designed by CHEN Tong </a>
+            </div>
+        </footer>
+
+    <th:block th:fragment="script">
+        <!-- Include Semantic UI Script, depend on jQuery form the site web -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+
+        <script src="../../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+        <script src="../../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+        <script src="../../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+        <script src="../../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    </th:block>
+
+    </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+
+<div class="my-style-top-div">
+    <div class="jumbotron text-center">
+        <h1>Web Retail Store</h1>
+        <p>The most powerful Online Store to order your own computer </p>
+    </div>
+
+    <div class="container my-style-container-div">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card my-style-card-div">
+                    <img class="card-img-top" th:src="@{/image/computer.jpg}" alt="Card image cap">
+                    <div class="my-style-card-content">
+                        <h3 class="my-style-header3">Customization</h3>
+                        <p>Select all the components to customize your own computer, it is all up to you !</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card my-style-card-div">
+                    <img class="card-img-top" th:src="@{/image/convenience.jpg}" alt="Card image cap">
+                    <div class="my-style-card-content">
+                        <h3 class="my-style-header3">Convenience</h3>
+                        <p>You can order on this site at any time, on your computer, ipad, or mobile phone.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card my-style-card-div">
+                    <img class="card-img-top" th:src="@{/image/feedback.jpg}"
+                         alt="Card image cap">
+                    <div class="my-style-card-content">
+                        <h3 class="my-style-header3">Real-time</h3>
+                        <p>Get real-time feedback of the order process, check the status anytime, anywhere. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-style-center-div">
+        <form th:action="@{/list}" method="get">
+            <button type="submit" class="btn btn-info btn-lg my-button-center">Start shopping</button>
+        </form>
+    </div>
+</div>
+
+<footer class="bg-dark text-center text-white">
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">©2022 Copyright - Tong S.A.S, All rights
+        reserved.
+    </div>
+</footer>
+
+</body>
+</html>

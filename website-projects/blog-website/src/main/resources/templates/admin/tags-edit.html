@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head >
+        <meta charset="utf-8" />
+        <title>Blog Tong</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    </head>
+
+    <body>
+        <!-- Naviogatoion Bar ： stackable 注意响应手机移动端, 可堆叠的grid, 支持手机端的反转显示 -->
+        <nav class="ui inverted attached segment mystyle-padded-nav-mini" >
+            <div class="ui container">
+                <div class="ui inverted secondary stackable menu"> 
+                    <h2 class="ui teal header item"> 管理后台界面 </h2>
+                    <!-- 在移动端的时候隐藏掉对应的icon -->
+                    <a href="#" th:href="@{/admin/admin}" class="item mystyle-mobile-hide-style mobile-item"><i class="home icon"></i> <span>博客</span> </a>
+                    <a href="#" th:href="@{/admin/types}" class="item mystyle-mobile-hide-style mobile-item"><i class="idea icon"></i> <span>分类</span> </a>
+                    <a href="#" th:href="@{/admin/tags}" class="active item mystyle-mobile-hide-style mobile-item"><i class="tags icon"></i> <span>标签</span> </a>
+                    <div class="right menu mystyle-mobile-hide-style mobile-item">
+                        <div class="ui dropdown item"> <!-- Drop down Menu Item -->
+                            <div class="text">
+                                <img src="https://picsum.photos/100/100?image=1005" th:src="@{${session.user.avatar}}" class="ui avatar image">
+                                <span th:text="${session.user.nickname}"> 陈桐 </span>
+                            </div>
+                            <i class="ui dropdown icon"> </i>
+                            <div class="ui menu">
+                                <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+                            </div>
+                        </div> <!-- fin of the dropdown -->
+                    </div>
+                </div>
+            </div>
+            <!-- Nar menu Button : position absolu -->
+            <a href="#" class="ui menu toggle black icon button mystyle-button-bar-right mystyle-mobile-show-style">
+                <i class="sidebar icon"></i>
+            </a>
+        </nav>
+        <!-- 页面的2级导航标签 Menu -->
+        <div class="ui attached pointing menu">
+            <div class="ui container">
+                <div class="right menu"> <!-- 使用Menu移动到页面的右边 -->
+                    <a href="#" class="active teal item">新增</a>
+                    <a href="#" th:href="@{/admin/tags}" class="item">列表</a>
+                </div>
+            </div>  
+        </div>
+
+        <!-- Medium Part Content -->
+        <div class="mystyle-container-small mystyle-padded-div-medium">
+            <div class="ui container">
+               <!-- 将controller的type对象拿到前端，并作用到那么上面，赋值到作用域
+                    初始过来的空的对象的id是0 用于区别POST的判断
+                -->
+               <form action="#" method="post" th:action="*{id}==0? @{/admin/tags} : @{/admin/tags/{id}(id=*{id})}" th:object="${tag}" class="ui form">
+                   <input type="hidden" name="id" th:value="*{id}"> <!-- id和name都是拿的controller中的传递来的type对象的属性 -->
+                   <div class="required field"> <!-- failed : red color -->
+                       <div class="ui left labeled input" style="margin-top: 100px;">
+                           <label class="ui teal basic label">标签名称</label>
+                           <!-- !!! 设置要保存到表格中的列的名称name  必须一一对应 !!! -->
+                           <input type="text" name="name" placeholder="名称" th:value="*{name}">
+                       </div>   
+                   </div>
+                   <div class="ui error message"></div>  <!--- 提交表单时 验证的错误信息 -->
+                   <!--/*/
+                     <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+                       <i class="close icon"></i>
+                       <div class="header"> 提示 ：</div>
+                       <p th:errors="*{name}"> 提交的信息不符合规则 !</p>
+                     </div>
+                   /*/-->
+                   <div class="ui right aligned container">
+                       <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+                       <button class="ui positive submit button">提交</button>  <!-- submit 回车键即可控制按钮的点击功能 -->
+                   </div>
+               </form>
+            </div>
+        </div>
+        <footer th:include="admin/_fragments :: footer" class="ui inverted vertical segment mystyle-padded-footer-max"></footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+        <script type="text/javascript">
+            // Form Validation : 定义表单的验证信息  ==> angular & jQuery
+            // 前端的界面验证为优先验证错误的信息
+            $('.ui.form').form({
+                fields : {
+                    title : {
+                        identifier : 'name',
+                        rules : [{
+                            type : 'empty',
+                            prompt : '请输入分类名称'
+                        }]
+                    }
+                } 
+            });
+        </script>
+
+    </body>
+
+</html>

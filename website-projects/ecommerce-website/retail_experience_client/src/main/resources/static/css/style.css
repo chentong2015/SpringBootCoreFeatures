@@ -1,0 +1,31 @@
+.my-style-top-div {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    font-family: Georgia, serif;
+}
+
+.my-style-container-div {
+    margin-top: 50px;
+}
+
+.my-style-card-div {
+    width: 25rem;
+    margin: 5px;
+}
+
+.my-style-card-content {
+    margin: 5px;
+}
+
+.my-style-header3 {
+    color: hsl(30, 100%, 50%);
+}
+
+.my-style-center-div {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.my-button-center {
+    width: 200px;
+}

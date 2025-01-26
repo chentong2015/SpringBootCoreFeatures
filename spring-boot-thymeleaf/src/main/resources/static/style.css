@@ -1,0 +1,6 @@
+/*
+ * /static
+ * 静态目录中存储Thymeleaf页面动态加载的CSS文件
+ *
+ *  th:href="@{/style.css}"
+ * /

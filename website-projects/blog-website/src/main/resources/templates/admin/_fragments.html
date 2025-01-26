@@ -1,0 +1,33 @@
+<footer th:fragment="footer" class="ui inverted vertical segment mystyle-padded-footer-max"
+        xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="ui center aligned container">
+        <!-- 16 parts of the width : 3 3 3 4 divided with line -->
+        <div class="ui inverted divided stackable grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">  <!-- link | -->
+                    <a href="#" class="item">
+                        <img src="../static//images/logo.jpg" th:src="@{/images/logo.jpg}" class="ui rounded image" alt="" style="width: 100px">
+                    </a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">版权声明</h4>
+                <div class="ui inverted link list mystyle-opacity-tiny"> 版权归原作所有 <br> 未经允许，严禁转载 <br> </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">联系我</h4>
+                <div class="ui inverted link list">
+                    <!-- <a href="#" class="item"><i class="phone icon"></i>+33 667233690</a> --> 
+                    <a href="#" class="item"><i class="mail icon"></i>chen2016tong@gmail.com</a>
+                    <a href="#" class="item"><i class="marker alternate icon"></i> 巴黎, 法国 </a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header">坚持创作：每月至少写一篇技术文章</h4>
+                <div class="ui inverted link list mystyle-opacity-tiny"> 这是我的个人网站，分享一些编程技术和软件开发的相关经验，希望能解决你的疑惑。 你的点赞是我原创的动力。 </div>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>  <!-- Bottom line -->
+        <a class="m-text-spaced mystyle-opacity-tiny"> Copyright@ 2018-2019 Web Designed by CHEN Tong </a>
+    </div>
+</footer>

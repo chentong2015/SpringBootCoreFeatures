@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <title>Blog Tong</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+        <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+        <style>
+            /*jssor slider loading skin spin css*/
+            .jssorl-009-spin img {
+                animation-name: jssorl-009-spin;
+                animation-duration: 1.6s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
+            @keyframes jssorl-009-spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            /*jssor slider bullet skin 052 css*/
+            .jssorb052 .i {position:absolute;cursor:pointer;}
+            .jssorb052 .i .b {fill:#000;fill-opacity:0.3;}
+            .jssorb052 .i:hover .b {fill-opacity:.7;}
+            .jssorb052 .iav .b {fill-opacity: 1;}
+            .jssorb052 .i.idn {opacity:.3;}
+
+            /*jssor slider arrow skin 053 css*/
+            .jssora053 {display:block;position:absolute;cursor:pointer;}
+            .jssora053 .a {fill:none;stroke:#fff;stroke-width:640;stroke-miterlimit:10;}
+            .jssora053:hover {opacity:.8;}
+            .jssora053.jssora053dn {opacity:.5;}
+            .jssora053.jssora053ds {opacity:.3;pointer-events:none;}
+        </style>
+    </head>
+    <body>
+        <!-- Naviogatoion Bar ： stackable 注意响应手机移动端, 可堆叠的grid, 支持手机端的反转显示  -->
+        <nav class="ui inverted attached segment mystyle-padded-nav-mini" >
+            <div class="ui container">
+                <div class="ui inverted secondary stackable menu">
+                    <h2 class="ui teal header item"> Blog Tong </h2>
+                    <a href="#" th:href="@{/}" class="active item mystyle-mobile-hide-style mobile-item"><i class="home icon"></i> <span>首页</span></a>
+                    <a href="#" th:href="@{/types/-1}" class="item mystyle-mobile-hide-style mobile-item"><i class="idea icon"></i> <span>分类</span></a>
+                    <a href="#" th:href="@{/tags/-1}" class="item mystyle-mobile-hide-style mobile-item"><i class="tags icon"></i> <span>标签</span></a>
+                    <a href="#" th:href="@{/archives}" class="item mystyle-mobile-hide-style mobile-item"><i class="tasks icon"></i> <span>时间线</span></a>
+                    <a href="#" th:href="@{/about}" class="item mystyle-mobile-hide-style mobile-item"><i class="user icon"></i> <span>关于我</span></a>
+                    <div class="right item mystyle-mobile-hide-style mobile-item">
+                        <form name="search" action="#" th:action="@{/search}" method="post">
+                            <!-- <div class="ui icon inverted transparent input"> -->
+                            <div class="ui icon input">
+                                <input name="query" type="text" placeholder="search..." class="mystyle-input-size" th:value="${query}">
+                                <i onclick="document.forms['search'].submit()" class="search link icon"></i> <!-- JS函数提交页面的表单 -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Nar menu Button : position absolu -->
+            <a href="#" class="ui menu toggle black icon button mystyle-button-bar-right mystyle-mobile-show-style">
+                <i class="sidebar icon"></i>
+            </a>
+        </nav>
+        <!-- 首页顶部的图片 -->
+        <div> <img src="../static/images/IndexPicture.jpg" th:src="@{/images/IndexPicture.jpg}" style="width: 100%;"> </div>
+       
+        <!-- Medium Part Content -->
+        <div id="waypoint" class="mystyle-container mystyle-padded-div-medium">
+            <div class="ui container">
+                <div class="ui stackable grid">  <!-- Grid 16 part : 11 + 5 -->
+                    <div class="eleven wide column"> <!-- Header of content : two column -->
+                        <div class="ui top attached segment">
+                            <div class="ui middle aligned two column grid"> <!-- middle aligned : center the div -->
+                                <div class="column">
+                                    <h3 class="ui teal header mystyleHeader">我的博客</h3>
+                                </div>
+                                <div class="right aligned column">
+                                  共 <h3 class="ui orange header mystyle-inline-block" th:text="${page.totalElements}"> 15 </h3> 篇
+                                </div>
+                            </div>
+                        </div>
+                        <!-- List of content : attached / two column -->
+                        <div class="ui attached segment">
+                            <div class="ui padded vertical segment mystyle-padded-div-medium animated flipInX" th:each="blog : ${page.content}"> <!-- Add line to this segment : vertical -->
+                                <div class="ui middle aligned mobile reversed stackable grid">
+                                    <div class="eleven wide column">
+                                        <div class="ui teal basic label mystyle-padded-a-mini mystyle-type-margin" th:text="${blog.type.name}" style="float: right;">博客的类型</div>
+                                        <h3 class="ui header">
+                                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" th:text="${blog.title}">博客标题</a>
+                                            <a class="ui orange basic left pointing label mystyle-padded-a-mini" th:text="${blog.flag}"> 博客flag </a>
+                                        </h3>
+                                        <p class="mystyle-text" th:text="|${blog.description}.....|"> 博客描述 </p>
+                                        <div class="ui stackable grid">
+                                            <div class="eleven wide column">
+                                                 <div class="ui horizontal link list"> <!-- Link horizontal -->
+                                                    <div class="item">
+                                                        <img src="https://picsum.photos/100/100?image=1" th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image">
+                                                        <div class="content">
+                                                            <a href="#" th:href="@{/about}" class="header" th:text="${blog.user.nickname}">TONG</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item">
+                                                        <!-- <i class="calendar icon"></i> -->
+                                                        <i class="middle aligned" th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}">2018-09-25</i>
+                                                    </div>
+                                                    <div class="item">
+                                                        <i class="eye icon"></i>
+                                                        <i class="middle aligned" th:text="${blog.views}">1</i>
+                                                    </div>
+                                                    <div class="item" th:if="${blog.appreciation}">
+                                                        <i class="thumbs up outline icon"></i>
+                                                        <i class="middle aligned" th:text="${blog.good}">1</i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="five wide column">  <!-- Image part right  https://picsum.photos/800/450?image=0 -->
+                                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}">
+                                           <img src="../static/images/blog1.jpg" th:src="@{${blog.firstpicture}}" alt="" class="ui rounded image">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Bottom content two column : button / mini -->
+                            <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+                                <div class="ui middle aligned two column grid">
+                                    <div class="column">
+                                        <a href="#" th:href="@{/(page=${page.number}-1)}" th:unless="${page.first}" class="ui teal basic button">上一页</a>
+                                    </div>
+                                    <div class="right aligned column">
+                                        <a href="#" th:href="@{/(page=${page.number}+1)}" th:unless="${page.last}" class="ui teal basic button">下一页</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Nar right part of the content : segements -->
+                    <div class="five wide column">
+                        <div class="ui segments mystyle-margin-div-small"> 
+                           <div class="ui secondary segment">
+                               <div class="ui two column grid">  <!-- Two column part in line-->
+                                   <div class="column"> <i class="idea icon"></i> <span>博客分类</span></div>
+                                   <div class="right aligned column">
+                                       <a href="#" th:href="@{/types/-1}"> More <i class="angle double right icon"></i></a> <!-- <i class="angle double right icon"></i> -->
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="ui teal segment">
+                               <div class="ui fluid vertical menu" > <!-- fluid 填充 -->
+                                    <a href="#" th:href="@{/types/{id}(id=${type.id})}" class="item animated slideInUp" th:each="type: ${types}">
+                                        <span th:text="${type.name}"> 学习日志 </span>
+                                        <div class="ui teal basic left pointing label" th:text="${#arrays.length(type.listBlogs)}">13</div>
+                                    </a>
+                               </div>
+                           </div>
+                        </div>
+                        <div class="ui segments mystyle-margin-div-small">
+                            <div class="ui secondary segment">
+                                <div class="ui two column grid">  <!-- Two column part in line-->
+                                    <div class="column"><i class="tags icon"></i> <span>博客标签</span></div>
+                                    <div class="right aligned column">
+                                        <a href="#" th:href="@{/tags/-1}"> More <i class="angle double right icon"></i></a> <!-- <i class="angle double right icon"></i> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui teal segment" >
+                                <div th:each="tag: ${tags}">
+                                    <i class="mini teal circle icon"></i>
+                                    <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" class="ui teal basic left pointing label mystyle-margin-a-tiny"  style="margin-right: 10px; width: 150px;">
+                                        <span th:text="${tag.name}" style="color: #6f7474!important;"> Node.js </span>
+                                        <div th:text="${#arrays.length(tag.listBlogs)}" class="detail" style="font-size: 16px; float: right;"> 12 </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui segments mystyle-margin-div-small">
+                            <div class="ui secondary segment"> <i class="bookmark icon"></i> <span>最新推荐</span> </div>
+                            <div class="ui segment animated slideInUp" th:each="blogrecommend : ${recommendBlogs}">
+                                <a href="#" th:href="@{/blog/{id}(id=${blogrecommend.id})}" class="mystyle-text-a" th:text="${blogrecommend.title}"> 推荐的博客的内容 </a>
+                            </div>
+                        </div>
+                        <h4 class="ui horizontal divider header">友情链接</h4>
+                        <div style="text-align: center;">
+                            <i class="hand point right outline icon"></i>
+                            <a href="#" th:href="@{/about}">我的个人空间 ：CHEN TONG</a>
+                        </div>
+                        <!-- 我的二维码
+                        <h4 class="ui horizontal divider header mystyle-margin-div-small">***</h4>
+                        <div class="ui centered card" style="width: 10em;">
+                            <img src="../static/images/QRcode.jpg" th:src="@{/images/QRcode.jpg}" alt="" class="ui rounded image" >
+                        </div>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:include="_fragments :: footer" class="ui inverted vertical segment mystyle-padded-footer-max"></footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+        <script type="text/javascript" src="../static/lib/slider/jssor.slider.min.js" th:src="@{/lib/slider/jssor.slider.min.js}"></script>
+        <script>
+            // 点击Menu按钮，触发标签的样式，显示或者隐藏
+            $('.menu.toggle').click(function() {
+               $('.mobile-item').toggleClass('mystyle-mobile-hide-style');
+            })
+        </script>
+
+        <script type="text/javascript">
+            jssor_1_slider_init = function() {
+                var jssor_1_SlideoTransitions = [
+                    [{b:0,d:600,y:-290,e:{y:27}}],
+                    [{b:0,d:1000,y:185},{b:1000,d:500,o:-1},{b:1500,d:500,o:1},{b:2000,d:1500,r:360},{b:3500,d:1000,rX:30},{b:4500,d:500,rX:-30},{b:5000,d:1000,rY:30},{b:6000,d:500,rY:-30},{b:6500,d:500,sX:1},{b:7000,d:500,sX:-1},{b:7500,d:500,sY:1},{b:8000,d:500,sY:-1},{b:8500,d:500,kX:30},{b:9000,d:500,kX:-30},{b:9500,d:500,kY:30},{b:10000,d:500,kY:-30},{b:10500,d:500,c:{x:125.00,t:-125.00}},{b:11000,d:500,c:{x:-125.00,t:125.00}}],
+                    [{b:0,d:600,x:535,e:{x:27}}],
+                    [{b:-1,d:1,o:-1},{b:0,d:600,o:1,e:{o:5}}],
+                    [{b:-1,d:1,c:{x:250.0,t:-250.0}},{b:0,d:800,c:{x:-250.0,t:250.0},e:{c:{x:7,t:7}}}],
+                    [{b:-1,d:1,o:-1},{b:0,d:600,x:-570,o:1,e:{x:6}}],
+                    [{b:-1,d:1,o:-1,r:-180},{b:0,d:800,o:1,r:180,e:{r:7}}],
+                    [{b:0,d:1000,y:80,e:{y:24}},{b:1000,d:1100,x:570,y:170,o:-1,r:30,sX:9,sY:9,e:{x:2,y:6,r:1,sX:5,sY:5}}],
+                    [{b:2000,d:600,rY:30}],
+                    [{b:0,d:500,x:-105},{b:500,d:500,x:230},{b:1000,d:500,y:-120},{b:1500,d:500,x:-70,y:120},{b:2600,d:500,y:-80},{b:3100,d:900,y:160,e:{y:24}}],
+                    [{b:0,d:1000,o:-0.4,rX:2,rY:1},{b:1000,d:1000,rY:1},{b:2000,d:1000,rX:-1},{b:3000,d:1000,rY:-1},{b:4000,d:1000,o:0.4,rX:-1,rY:-1}]
+                ];
+
+                var jssor_1_options = {
+                    $AutoPlay: 1,
+                    $Idle: 2000,
+                    $CaptionSliderOptions: {
+                        $Class: $JssorCaptionSlideo$,
+                        $Transitions: jssor_1_SlideoTransitions,
+                        $Breaks: [
+                            [{d:2000,b:1000}]
+                        ]
+                    },
+                    $ArrowNavigatorOptions: {
+                        $Class: $JssorArrowNavigator$
+                    },
+                    $BulletNavigatorOptions: {
+                        $Class: $JssorBulletNavigator$
+                    }
+                };
+
+                var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+                /*#region responsive code begin*/
+                var MAX_WIDTH = 980;
+                function ScaleSlider() {
+                    var containerElement = jssor_1_slider.$Elmt.parentNode;
+                    var containerWidth = containerElement.clientWidth;
+                    if (containerWidth) {
+                        var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+                        jssor_1_slider.$ScaleWidth(expectedWidth);
+                    } else {
+                        window.setTimeout(ScaleSlider, 30);
+                    }
+                }
+                ScaleSlider();
+                $Jssor$.$AddEvent(window, "load", ScaleSlider);
+                $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+                $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+                /*#endregion responsive code end*/
+            };
+        </script>
+        <script type="text/javascript">jssor_1_slider_init();</script>
+
+    </body>
+</html>

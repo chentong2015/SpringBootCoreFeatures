@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Error</title>
+    </head>
+    <body>
+       <h1>Error</h1>
+       <!-- Spring Boot : 只有源代码会看到 -->
+       <!-- Show the error Exception in the page web 显示异常的信息到网页端 -->
+       <div>
+           <!-- remove 移除标签，显示文本信息的格式 -->
+           <div th:utext="'&lt;!--'" th:remove="tag"></div>
+           <div th:utext="'Failed Request URL:' + ${url}" th:remove="tag"></div>
+           <div th:utext="'Failed Message:' + ${exception.message}" th:remove="tag"></div>
+           <div th:remove="tag">
+               <li th:each="st : ${exception.stackTrace}" th:remove="tag">
+                   <span th:utext="${st}" th:remove="tag"></span>
+               </li>
+           </div>
+           <div th:utext="'--&gt;'" th:remove="tag"></div>
+       </div>
+    </body>
+</html>

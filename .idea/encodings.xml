@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/spring-boot-caching/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-caching/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-exception-handler/spring-boot-tester1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-exception-handler/spring-boot-tester1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-exception-handler/spring-boot-tester2/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-exception-handler/spring-boot-tester2/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-exception-handler/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-exception-handler/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-file-uploader/spring-boot-upload-download-example/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-file-uploader/spring-boot-upload-download-example/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-file-uploader/spring-boot-upload-download-files/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-file-uploader/spring-boot-upload-download-files/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-file-uploader/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-file-uploader/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-caching/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-caching/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-exception-handler/spring-boot-tester1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-exception-handler/spring-boot-tester1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-exception-handler/spring-boot-tester2/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-exception-handler/spring-boot-tester2/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-exception-handler/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-exception-handler/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-file-uploader/spring-boot-upload-download-example/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-file-uploader/spring-boot-upload-download-example/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-file-uploader/spring-boot-upload-download-files/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-file-uploader/spring-boot-upload-download-files/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-file-uploader/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-file-uploader/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-swagger-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-swagger-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-thymeleaf/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/spring-boot-thymeleaf/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-project/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-swagger-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-swagger-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-thymeleaf/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-thymeleaf/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/website-projects/blog-website/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/website-projects/ecommerce-website/retail_experience_admin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/website-projects/ecommerce-website/retail_experience_admin/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/website-projects/ecommerce-website/retail_experience_client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/website-projects/ecommerce-website/retail_experience_client/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/website-projects/ecommerce-website/retail_experience_server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/website-projects/ecommerce-website/retail_experience_server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/website-projects/ecommerce-website/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/website-projects/ecommerce-website/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/website-projects/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/website-projects/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

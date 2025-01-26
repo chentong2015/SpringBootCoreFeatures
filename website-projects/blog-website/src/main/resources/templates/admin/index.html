@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <title>Blog Tong</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    </head>
+    <body> <!-- Naviogatoion Bar ： stackable 注意响应手机移动端, 可堆叠的grid, 支持手机端的反转显示  -->
+        <nav class="ui inverted attached segment mystyle-padded-nav-mini" >
+            <div class="ui container">
+                <div class="ui inverted secondary stackable menu"> 
+                    <h2 class="ui teal header item"> 管理后台界面 </h2>
+                    <!-- 在移动端的时候隐藏掉对应的icon -->
+                    <a href="#" th:href="@{/admin/admin}" class="item mystyle-mobile-hide-style mobile-item"><i class="home icon"></i> <span> 博客</span> </a>
+                    <a href="#" th:href="@{/admin/types}" class="item mystyle-mobile-hide-style mobile-item"><i class="idea icon"></i> <span> 分类</span> </a>
+                    <a href="#" th:href="@{/admin/tags}" class="item mystyle-mobile-hide-style mobile-item"><i class="tags icon"></i> <span> 标签</span> </a>
+                    <div class="right menu mystyle-mobile-hide-style mobile-item">
+                        <div class="ui dropdown item"> <!-- Drop down Menu Item -->
+                            <div class="text">
+                                <img src="https://picsum.photos/100/100?image=1005" th:src="@{${session.user.avatar}}" class="ui avatar image">
+                                <span th:text="${session.user.nickname}"> 陈桐 </span>
+                            </div>
+                            <i class="ui dropdown icon"> </i>
+                            <div class="ui menu">
+                                <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+                            </div>
+                        </div> <!-- fin of the dropdown -->
+                    </div>
+                </div>
+            </div>
+            <!-- Nar menu Button : position absolu -->
+            <a href="#" class="ui menu toggle black icon button mystyle-button-bar-right mystyle-mobile-show-style">
+                <i class="sidebar icon"></i>
+            </a>
+        </nav>
+        <!-- Medium Part Content -->
+        <div class="mystyle-container-small mystyle-padded-div-medium">
+            <div class="ui container">
+              <div class="ui success large message" style="text-align: center;">
+                  <h3> 欢迎登陆后台界面 !</h3>
+              </div>
+              <img src="https://picsum.photos/id/1051/1000/500" class="ui rounded bordered fluid image">
+            </div>
+        </div>
+        <footer th:include="admin/_fragments :: footer" class="ui inverted vertical segment mystyle-padded-footer-max"></footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+        <script>
+            // 点击Menu按钮，触发标签的样式，显示或者隐藏
+            $('.menu.toggle').click(function() {
+               $('.mobile-item').toggleClass('mystyle-mobile-hide-style');
+            })
+            // 初始化下拉菜单的组件
+            $('.ui.dropdown').dropdown({
+                on: 'hover'
+            });
+        </script>
+
+    </body>
+</html>
