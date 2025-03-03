@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class ProductControllerTest {
+public class ProductControllerTest {
 
     // 使用Autowired会自动添加Controller的ExceptionHandler !!
     @Autowired
