@@ -1,4 +1,4 @@
-package org.example.config;
+package swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +33,7 @@ public class SpringFoxConfig {
                 "Some custom description of API.",
                 "API TOS",
                 "Terms of service",
-                new Contact("chen tong", "www.example.com", "myeaddress@company.com"),
+                new Contact("victor", "www.example.com", "myeaddress@company.com"),
                 "License of API",
                 "API license URL",
                 Collections.emptyList());
