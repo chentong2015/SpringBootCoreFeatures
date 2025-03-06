@@ -2,19 +2,20 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring-boot-thymeleaf" />
         <module name="retail_experience_admin" />
+        <module name="springdoc-openapi-swagger-ui" />
         <module name="retail_experience_server" />
         <module name="spring-boot-tester1" />
         <module name="website-projects" />
         <module name="spring-boot-caching" />
         <module name="spring-boot-tester2" />
         <module name="spring-boot-upload-download-files" />
-        <module name="spring-boot-swagger-api" />
         <module name="blog-website" />
         <module name="retail_experience_client" />
         <module name="spring-boot-upload-download-example" />

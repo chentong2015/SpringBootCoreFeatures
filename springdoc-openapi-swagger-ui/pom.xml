@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>spring-boot-swagger-api</artifactId>
+    <artifactId>springdoc-openapi-swagger-ui</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -24,21 +24,23 @@
             <version>3.4.1</version>
         </dependency>
 
+        <!-- TODO. springdoc-openapi supports Swagger UI -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+
+        <!-- 从老版本springfox-swagger2迁移到springdoc-openapi
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>3.0.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>3.0.0</version>
-        </dependency>
+        </dependency> -->
     </dependencies>
 </project>

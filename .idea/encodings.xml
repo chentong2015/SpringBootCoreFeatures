@@ -39,6 +39,8 @@
     <file url="file://$PROJECT_DIR$/spring-boot-swagger-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-boot-thymeleaf/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-boot-thymeleaf/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springdoc-openapi-swagger-ui/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springdoc-openapi-swagger-ui/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/website-projects/blog-website/src/main/java" charset="UTF-8" />

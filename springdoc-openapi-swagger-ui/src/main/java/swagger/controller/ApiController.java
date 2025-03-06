@@ -1,4 +1,4 @@
-package swagger;
+package swagger.controller;
 
 import org.springframework.web.bind.annotation.*;
 
