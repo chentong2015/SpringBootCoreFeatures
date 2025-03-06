@@ -1,0 +1,8 @@
+[source,json,options="nowrap"]
+----
+{
+  "id" : 1,
+  "name" : "apple",
+  "detail" : "detail of product"
+}
+----

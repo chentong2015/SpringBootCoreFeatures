@@ -1,0 +1,12 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 72
+
+{
+  "id" : 1,
+  "name" : "apple",
+  "detail" : "detail of product"
+}
+----

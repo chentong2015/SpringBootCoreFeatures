@@ -6,7 +6,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import swagger.model.Product;
 
 import java.util.List;
 
@@ -26,17 +28,18 @@ public class ApiDocController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Operation(summary = "GET", description = "New User creation")
-    @GetMapping("/user/creation")
+    @Operation(summary = "POST", description = "New User Creation")
+    @PostMapping("/user/creation")
     public ResponseEntity<String> createUser(String user) {
         System.out.println(user);
         return new ResponseEntity<>("Create OK", HttpStatus.OK);
     }
 
-    @Operation(summary = "GET", description = "Old User deletion")
-    @GetMapping("/user/deletion")
-    public ResponseEntity<String> deleteUser(String user) {
-        System.out.println(user);
-        return new ResponseEntity<>("Delete OK", HttpStatus.OK);
+    // API Doc会自动创建返回类型的描述
+    @Operation(summary = "GET", description = "Fetch Product Information")
+    @GetMapping("/product")
+    public ResponseEntity<Product> fetchProduct() {
+         Product product = new Product(1, "apple", "detail of product");
+         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 }

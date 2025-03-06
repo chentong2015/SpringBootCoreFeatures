@@ -1,11 +1,19 @@
+TODO. Swagger: Endpoints API 标准文档
+https://springfox.github.io/springfox/docs/current/#quick-start-guides
+
+SpringFox Default Path:
+http://localhost:8080/v2/api-docs      Json格式的API文档
+http://localhost:8080/v2/api-docs.yaml yaml文档配置文件
+
+TODO. OpenAPI: specification born out of Swagger 2.0 衍生的规范
 https://springdoc.org/#getting-started
 https://springdoc.org/properties.html
 
-OpenAPI文档路径
+OpenAPI Default Path:
 http://localhost:8080/swagger-ui.html  UI格式的API文档
 http://localhost:8080/v3/api-docs      Json格式的API文档
 http://localhost:8080/v3/api-docs.yaml yaml文档配置文件
 
-SpringFox默认路径
-http://localhost:8080/v2/api-docs      Json格式的API文档
-http://localhost:8080/v2/api-docs.yaml yaml文档配置文件
+TODO. Spring REST Docs: RESTful API文档创建
+Spring REST Docs is a framework developed by the Spring community
+in order to create accurate documentation for RESTful APIs.

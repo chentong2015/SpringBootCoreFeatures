@@ -14,6 +14,7 @@ public class OpenApiConfig {
     @Value("${springdoc.version}")
     private String appVersion;
 
+    // 配置不同的API Doc到不同组
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
