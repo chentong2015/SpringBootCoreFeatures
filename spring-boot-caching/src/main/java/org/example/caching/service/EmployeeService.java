@@ -1,7 +1,5 @@
 package org.example.caching.service;
 
-import org.example.caching.bean.Employee;
-import org.example.caching.dao.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -21,8 +19,9 @@ public class EmployeeService {
     public EmployeeService(EmployeeRepository repository) {
         this.repository = repository;
     }
+
     public void saveEmployee(Employee employee) {
-        repository.save(employee);
+        this.repository.save(employee);
     }
 
     // Cacheable标注在方法上，注明要返回的数据是被缓存的

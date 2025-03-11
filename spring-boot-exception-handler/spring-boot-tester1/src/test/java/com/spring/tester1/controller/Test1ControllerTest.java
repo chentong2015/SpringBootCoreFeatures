@@ -37,11 +37,11 @@ class Test1ControllerTest {
 
     // 报错 java.lang.IllegalStateException: original request is required
     // 使用以下mock的异常能够进行指定的catch条件
-    // doThrow(new RuntimeException("test exception")).when(productService).testInsertProduct(anyString(), any(Product.class));
+    // doThrow(new RuntimeException("test exception"))
+    //  .when(productService)
+    //  .testInsertProduct(anyString(), any(Product.class));
     @Test
     void testInsertProductWithFeignException() throws Exception {
-        byte[] content = getRequestBodyContent();
-        ProductService productService = Mockito.mock(ProductService.class);
         // TODO. 创建自定义Feign Client请求返回的Response
         Response response = Response.builder()
                 .status(400)
@@ -51,10 +51,12 @@ class Test1ControllerTest {
                 .body("Product already exists", StandardCharsets.UTF_8)
                 .build();
 
+        ProductService productService = Mockito.mock(ProductService.class);
         doThrow(FeignException.errorStatus("method key test", response))
                 .when(productService).testInsertProduct(anyString(), any(Product.class));
+
         mockMvc.perform(post("/products/test/2")
-                        .content(content)
+                        .content(getRequestBodyContent())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(content().string("Product already exists"));
@@ -64,14 +66,15 @@ class Test1ControllerTest {
     // 后端的server没有启动，所以无法测试
     @Test
     void testInsertProductWithExceptionAndResponseBody() throws Exception {
-        byte[] content = getRequestBodyContent();
         ProductService productService = Mockito.mock(ProductService.class);
+
         // TODO. 这种直接返回new ResponseEntity<>的方式，
         //       不会进入 } catch (FeignException exception) {的条件
         Mockito.doReturn(new ResponseEntity<>("Product already exists 11", HttpStatus.BAD_REQUEST))
                 .when(productService).testInsertProduct(anyString(), any(Product.class));
+
         mockMvc.perform(post("/products/test/2")
-                        .content(content)
+                        .content(getRequestBodyContent())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(content().string("Product already exists"));
@@ -80,12 +83,12 @@ class Test1ControllerTest {
     // 补充测试覆盖率，设置返回的ResponseEntity的另一个条件
     @Test
     void testInsertProductWithExceptionWithoutResponseBody() throws Exception {
-        byte[] content = getRequestBodyContent();
         ProductService productService = Mockito.mock(ProductService.class);
         Mockito.when(productService.testInsertProduct(anyString(), any(Product.class)))
                 .thenAnswer(invocationOnMock -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+
         mockMvc.perform(post("/products/test/2")
-                        .content(content)
+                        .content(getRequestBodyContent())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(content().string("error: without response body"));
@@ -95,9 +98,8 @@ class Test1ControllerTest {
         // Resource resource = new ClassPathResource("products.json");
         // FileInputStream file = new FileInputStream(resource.getFile());
         // byte[] content = ByteStreams.toByteArray(file);
-        Product product = new Product();
-        product.setId("2");
-        product.setName("test");
+
+        Product product = new Product("2", "test");
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(product);
         return json.getBytes();

@@ -28,21 +28,19 @@ class Test1ControllerTestOK {
 
     @Test
     void testInsertProductWithExceptionWithoutResponseBody() throws Exception {
-        byte[] content = getRequestBodyContent();
         ProductService productService = Mockito.mock(ProductService.class);
         Mockito.when(productService.testInsertProduct(anyString(), any(Product.class)))
                 .thenThrow(new TestHandlerException("Product already exists"));
+
         mockMvc.perform(post("/products/handler/2")
-                        .content(content)
+                        .content(getRequestBodyContent())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(content().string("Product already exists"));
     }
 
     private byte[] getRequestBodyContent() throws JsonProcessingException {
-        Product product = new Product();
-        product.setId("2");
-        product.setName("test");
+        Product product = new Product("2", "test");
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(product);
         return json.getBytes();

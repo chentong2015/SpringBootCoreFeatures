@@ -11,26 +11,52 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 @RestController
-public class Test1ControllerOK {
+public class ExceptionHandlerController {
 
     private final ProductService productService;
 
     @Autowired
-    public Test1ControllerOK(ProductService productService) {
+    public ExceptionHandlerController(ProductService productService) {
         this.productService = productService;
+    }
+
+    // TODO. 捕获异常后, 在tester1层的controller没有抛出异常
+    //  而是拿到对应错误信息和httpStatus, 返回相同的ResponseEntity<>
+    @PostMapping("/products/exception/{id}")
+    public ResponseEntity<String> testInsertProductException(@PathVariable("id") String id, @RequestBody Product product) {
+        try {
+            productService.testInsertProductException(id, product);
+            URI uri = UriComponentsBuilder
+                    .fromPath("/v1/statics/data/{id}")
+                    .buildAndExpand("e17dd1f1")
+                    .toUri();
+            return ResponseEntity.created(uri).build(); // .body("success")
+
+        } catch (FeignException exception) {
+            System.out.println("Exception content: " + exception.contentUTF8());
+            HttpStatus httpStatus = HttpStatus.valueOf(exception.status());
+            Optional<ByteBuffer> response = exception.responseBody();
+            if (response.isPresent()) {
+                String error = StandardCharsets.UTF_8.decode(response.get()).toString();
+                System.out.println("error ---- " + error);
+                return new ResponseEntity<>(error, httpStatus);
+            }
+            return new ResponseEntity<>("error: without response body", httpStatus);
+        }
     }
 
     @PostMapping("/products/handler/{id}")
     public ResponseEntity<String> insertProduct(@PathVariable("id") String id, @RequestBody Product product) {
         try {
-            // 只要这里的请求表示200正常返回，则会进入异常捕获条件 !!
-            productService.testPostProductHandler(id, product);
+            productService.testInsertProductHandler(id, product);
             System.out.println("test post handler ok");
             return ResponseEntity.ok().build();
 

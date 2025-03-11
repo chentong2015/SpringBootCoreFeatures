@@ -8,11 +8,13 @@ public class Product implements Serializable {
     private String name;
 
     // TODO. 需要带有默认的构造器，在POST请求中能够自动构建model的object
+    public Product() {
+    }
 
-    //public Product(String id, String name) {
-    //    this.id = id;
-    //    this.name = name;
-    //}
+    public Product(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public String getId() {
         return id;

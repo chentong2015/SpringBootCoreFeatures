@@ -1,6 +1,7 @@
 package com.spring.tester2.controller;
 
 import com.google.common.io.ByteStreams;
+import com.spring.tester2.advice.ProductControllerAdvice;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,7 +29,7 @@ public class ProductControllerTest {
     // TODO. 使用MockMvcBuilders构建，需要配置自定义的ControllerAdvice
     public ProductControllerTest() {
         MockMvc mockMvc1 = MockMvcBuilders.standaloneSetup(new ProductController())
-                .setControllerAdvice(new ProductExceptionControllerAdvice())
+                .setControllerAdvice(new ProductControllerAdvice())
                 .build();
     }
 

@@ -1,4 +1,4 @@
-package org.example.caching.bean;
+package org.example.caching.service;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
