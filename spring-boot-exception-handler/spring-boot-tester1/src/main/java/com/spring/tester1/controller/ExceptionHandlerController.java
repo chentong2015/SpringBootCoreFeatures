@@ -1,8 +1,9 @@
 package com.spring.tester1.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.spring.tester1.exception.TestHandlerException;
 import com.spring.tester1.model.Product;
-import com.spring.tester1.service.ProductService;
+import com.spring.tester1.utils.RestTemplateHelper;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,9 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
@@ -21,11 +22,11 @@ import java.util.Optional;
 @RestController
 public class ExceptionHandlerController {
 
-    private final ProductService productService;
+    private final RestTemplate restTemplate;
 
     @Autowired
-    public ExceptionHandlerController(ProductService productService) {
-        this.productService = productService;
+    public ExceptionHandlerController(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     // TODO. 捕获异常后, 在tester1层的controller没有抛出异常
@@ -33,37 +34,27 @@ public class ExceptionHandlerController {
     @PostMapping("/products/exception/{id}")
     public ResponseEntity<String> testInsertProductException(@PathVariable("id") String id, @RequestBody Product product) {
         try {
-            productService.testInsertProductException(id, product);
-            URI uri = UriComponentsBuilder
-                    .fromPath("/v1/statics/data/{id}")
-                    .buildAndExpand("e17dd1f1")
-                    .toUri();
-            return ResponseEntity.created(uri).build(); // .body("success")
-
-        } catch (FeignException exception) {
-            System.out.println("Exception content: " + exception.contentUTF8());
-            HttpStatus httpStatus = HttpStatus.valueOf(exception.status());
-            Optional<ByteBuffer> response = exception.responseBody();
-            if (response.isPresent()) {
-                String error = StandardCharsets.UTF_8.decode(response.get()).toString();
-                System.out.println("error ---- " + error);
-                return new ResponseEntity<>(error, httpStatus);
+            String response = RestTemplateHelper.sendPostRequest(restTemplate, "localhost:", product);
+            return ResponseEntity.ok().body(response);
+        } catch (HttpClientErrorException exception) {
+            HttpStatus httpStatus = exception.getStatusCode();
+            String message = exception.getMessage();
+            if (message == null || message.isEmpty()) {
+                return new ResponseEntity<>("error: without response body", httpStatus);
             }
-            return new ResponseEntity<>("error: without response body", httpStatus);
+            return new ResponseEntity<>(message, httpStatus);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @PostMapping("/products/handler/{id}")
     public ResponseEntity<String> insertProduct(@PathVariable("id") String id, @RequestBody Product product) {
         try {
-            productService.testInsertProductHandler(id, product);
-            System.out.println("test post handler ok");
-            return ResponseEntity.ok().build();
+            String response = RestTemplateHelper.sendPostRequest(restTemplate, "localhost:", product);
+            return ResponseEntity.ok().body(response);
 
         } catch (TestHandlerException handlerException) {
-            // 根据捕获到的异常，能够mapping到指定的Response httpCode
-            // 无法准确获取后端的异常信息message !!
-            // {"timestamp":"2022-05-27T14:09:09.267+00:00","status":400,"error":"Bad Request","path":"/products/handler/3"}
             System.out.println(handlerException.getMessage());
             return new ResponseEntity<>(handlerException.getMessage(), HttpStatus.BAD_REQUEST);
 
@@ -77,6 +68,8 @@ public class ExceptionHandlerController {
                 return new ResponseEntity<>(error, httpStatus);
             }
             return new ResponseEntity<>("error", httpStatus);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 }
