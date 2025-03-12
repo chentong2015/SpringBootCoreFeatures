@@ -23,14 +23,14 @@ public class ExceptionHandlerController {
     // TODO. HTTP请求返回的异常状态将被ControllerAdvice处理，并返回同样状态给调用端
     @PostMapping("/products/exception/{id}")
     public ResponseEntity<String> testInsertProductException(@PathVariable("id") String id, @RequestBody Product product) {
-        String url = "localhost:5679/products/exception/" + id;
+        String url = "http://localhost:5679/products/exception/" + id;
         String response = RestTemplateHelper.sendPostRequest(restTemplate, url, product);
         return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/products/handler/{id}")
     public ResponseEntity<String> insertProduct(@PathVariable("id") String id, @RequestBody Product product) {
-        String url = "localhost:5679/products/handler/" + id;
+        String url = "http://localhost:5679/products/handler/" + id;
         String response = RestTemplateHelper.sendPostRequest(restTemplate, url, product);
         return ResponseEntity.ok().body(response);
     }

@@ -12,11 +12,11 @@ public class ExceptionHandlerController {
     @PostMapping("/products/exception/{id}")
     public ResponseEntity<String> testPostProduct(@PathVariable("id") String id, @RequestBody Product product) {
         // return new ResponseEntity<>("bad request testing", HttpStatus.BAD_REQUEST);
-        throw new ProductExistException("Exception: Product already exists");
+        throw new ProductExistException("Product already exists");
     }
 
     @PostMapping("/products/handler/{id}")
     public ResponseEntity<Void> testPostProductWithHandler(@PathVariable("id") String id, @RequestBody Product product) {
-        throw new TestHandlerException("Exception: Product already exists");
+        throw new TestHandlerException("Product already exists");
     }
 }

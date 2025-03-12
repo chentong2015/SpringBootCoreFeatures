@@ -20,23 +20,21 @@ public class RestTemplateHelper {
         return response;
     }
 
-    // 使用自定义注入的Bean对象发送POST请求
+    // TODO. 使用自定义注入的Bean对象发送POST请求
     // 抛出的InternalServerException异常将被ControllerAdvice处理
     public static String sendPostRequest(RestTemplate restTemplate, String url, Product product)  {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(parseJsonBody(product), headers);
+        return restTemplate.postForObject(url, request, String.class);
+    }
 
+    private static String parseJsonBody(Product product) {
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonBody;
         try {
-            jsonBody = objectMapper.writeValueAsString(product);
+            return objectMapper.writeValueAsString(product);
         } catch (JsonProcessingException exception) {
             throw new InternalServerException("Json Processing Failure");
         }
-
-        HttpEntity<String> request = new HttpEntity<>(jsonBody, headers);
-        String responseBody = restTemplate.postForObject(url, request, String.class);
-        System.out.println(responseBody);
-        return responseBody;
     }
 }

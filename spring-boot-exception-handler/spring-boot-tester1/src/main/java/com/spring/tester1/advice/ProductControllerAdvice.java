@@ -10,16 +10,15 @@ import org.springframework.web.client.HttpClientErrorException;
 @ControllerAdvice
 public class ProductControllerAdvice {
 
-    // TODO. 处理RestTemplate请求的异常
+    // TODO. 处理RestTemplate请求的异常: 将异常的信息等效的抛出
     @ExceptionHandler(HttpClientErrorException.class)
     public ResponseEntity<String> handleHttpClientErrorException(HttpClientErrorException exception) {
+        String detailsMessage = exception.getMessage();
+        System.out.println(detailsMessage);
+        
         HttpStatus httpStatus = (HttpStatus) exception.getStatusCode();
-        String message = exception.getMessage();
-        if (message == null || message.isEmpty()) {
-            System.out.println("Tester1 Error: without response body");
-            return new ResponseEntity<>("Empty response", httpStatus);
-        }
-        return new ResponseEntity<>(message, httpStatus);
+        String responseBody = exception.getResponseBodyAsString();
+        return new ResponseEntity<>(responseBody, httpStatus);
     }
 
     // TODO. 处理Controller请求抛出的异常异常

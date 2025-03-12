@@ -24,8 +24,11 @@ public class ProductControllerAdvice {
     public ResponseEntity<String> handleTestHandlerException(TestHandlerException exception) {
         System.out.println("Tester2: test handler exception !!");
         if(AnnotationUtils.findAnnotation(exception.getClass(), ResponseStatus.class) != null) {
+            // 直接抛出的异常信息给请求端
+            // 400 on POST request for "http://localhost:5679/products/handler/2":
+            // "{"timestamp":"2025-03-12T16:57:03.943+00:00","status":400,"error":"Bad Request","path":"/products/handler/2"}"
             throw exception;
         }
-        return new ResponseEntity<>("Handler exception", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

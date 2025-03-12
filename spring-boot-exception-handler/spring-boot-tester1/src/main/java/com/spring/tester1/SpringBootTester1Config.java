@@ -7,9 +7,9 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class SpringBootTester1Config {
 
-    // 注入的Bean可以在测试时进行Mock
     @Bean
     public RestTemplate restTemplate() {
+        System.out.println("Inject Rest Template");
         return new RestTemplate();
     }
 }
