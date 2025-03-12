@@ -8,9 +8,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.client.HttpClientErrorException;
@@ -28,13 +28,15 @@ class ExceptionHandlerControllerTest {
     private MockMvc mockMvc;
 
     // TODO. 在后端Server没有启动的情况下，Mock请求的发送和返回
-    @MockBean
+    // @MockBean spring-boot-test 3.4.0 版本之后废弃
+    @MockitoBean
     private RestTemplate restTemplate;
 
     @Test
     void testInsertProductWithExceptionWithoutResponseBody() throws Exception {
+        Exception expectedException = new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Product already exists");
         Mockito.when(restTemplate.postForObject(anything().toString(), anything(), String.class))
-                .thenThrow(new HttpClientErrorException(HttpStatus.BAD_REQUEST, "error"));
+                .thenThrow(expectedException);
 
         mockMvc.perform(post("/products/handler/2")
                         .content(getRequestBodyContent())

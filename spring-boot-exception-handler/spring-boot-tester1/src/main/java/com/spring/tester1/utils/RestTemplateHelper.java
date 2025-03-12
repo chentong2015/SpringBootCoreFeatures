@@ -2,6 +2,7 @@ package com.spring.tester1.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spring.tester1.exception.InternalServerException;
 import com.spring.tester1.model.Product;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,14 +20,21 @@ public class RestTemplateHelper {
         return response;
     }
 
-    public static String sendPostRequest(RestTemplate restTemplate, String url, Product product) throws JsonProcessingException {
+    // 使用自定义注入的Bean对象发送POST请求
+    // 抛出的InternalServerException异常将被ControllerAdvice处理
+    public static String sendPostRequest(RestTemplate restTemplate, String url, Product product)  {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonBody = objectMapper.writeValueAsString(product);
-        HttpEntity<String> request = new HttpEntity<>(jsonBody, headers);
+        String jsonBody;
+        try {
+            jsonBody = objectMapper.writeValueAsString(product);
+        } catch (JsonProcessingException exception) {
+            throw new InternalServerException("Json Processing Failure");
+        }
 
+        HttpEntity<String> request = new HttpEntity<>(jsonBody, headers);
         String responseBody = restTemplate.postForObject(url, request, String.class);
         System.out.println(responseBody);
         return responseBody;

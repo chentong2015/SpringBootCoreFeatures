@@ -1,8 +1,6 @@
 package com.spring.tester2.controller;
 
-import com.spring.tester2.exception.InternalServerException;
 import com.spring.tester2.exception.ProductExistException;
-import com.spring.tester2.exception.TestHandlerException;
 import com.spring.tester2.model.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +25,7 @@ public class ProductController {
         if (mockProducts.containsKey(id)) {
             throw new ProductExistException("Product already exists");
         }
-        try {
-            mockProducts.put(id, product);
-        } catch (Exception exception) {
-            throw new InternalServerException("Find Internal Exception Error");
-        }
+        mockProducts.put(id, product);
         return new ResponseEntity<>("Product insert successfully", HttpStatus.OK);
     }
 

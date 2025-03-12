@@ -50,7 +50,6 @@ public class FileUploadController {
 
     // 在"redirect:/"重定向的时候，会在页面抛出Not Found 404的异常
     // 通过自定义实现/error/错误处理页面来优化错误信息的显示 !!
-    @ExceptionHandler(StorageFileNotFoundException.class)
     public ResponseEntity<StorageFileNotFoundException> handleStorageFileNotFound(StorageFileNotFoundException exc) {
         return ResponseEntity.notFound().build();
     }

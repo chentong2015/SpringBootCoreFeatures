@@ -1,4 +1,4 @@
-package com.spring.tester2.exception;
+package com.spring.tester1.exception;
 
 public class InternalServerException extends RuntimeException {
 
