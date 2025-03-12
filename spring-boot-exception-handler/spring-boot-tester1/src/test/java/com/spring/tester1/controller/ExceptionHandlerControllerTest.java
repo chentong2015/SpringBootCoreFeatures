@@ -1,8 +1,6 @@
 package com.spring.tester1.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.tester1.model.Product;
+import com.spring.tester1.ProductHelper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +37,9 @@ class ExceptionHandlerControllerTest {
                 .thenThrow(expectedException);
 
         mockMvc.perform(post("/products/handler/2")
-                        .content(getRequestBodyContent())
+                        .content(ProductHelper.getRequestBodyContent())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(content().string("Product already exists"));
-    }
-
-    private byte[] getRequestBodyContent() throws JsonProcessingException {
-        Product product = new Product("2", "test");
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(product);
-        return json.getBytes();
     }
 }

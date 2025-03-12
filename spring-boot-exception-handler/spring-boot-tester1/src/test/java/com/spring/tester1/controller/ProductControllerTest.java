@@ -1,8 +1,6 @@
 package com.spring.tester1.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.tester1.model.Product;
+import com.spring.tester1.ProductHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,7 +22,7 @@ class ProductControllerTest {
     void testInsertProductWithFeignException() throws Exception {
 
         mockMvc.perform(post("/products/test/2")
-                        .content(getRequestBodyContent())
+                        .content(ProductHelper.getRequestBodyContent())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(content().string("Product already exists"));
@@ -36,7 +34,7 @@ class ProductControllerTest {
     void testInsertProductWithExceptionAndResponseBody() throws Exception {
 
         mockMvc.perform(post("/products/test/2")
-                        .content(getRequestBodyContent())
+                        .content(ProductHelper.getRequestBodyContent())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(content().string("Product already exists"));
@@ -47,20 +45,9 @@ class ProductControllerTest {
     void testInsertProductWithExceptionWithoutResponseBody() throws Exception {
 
         mockMvc.perform(post("/products/test/2")
-                        .content(getRequestBodyContent())
+                        .content(ProductHelper.getRequestBodyContent())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(content().string("error: without response body"));
-    }
-
-    private byte[] getRequestBodyContent() throws JsonProcessingException {
-        // Resource resource = new ClassPathResource("products.json");
-        // FileInputStream file = new FileInputStream(resource.getFile());
-        // byte[] content = ByteStreams.toByteArray(file);
-
-        Product product = new Product("2", "test");
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(product);
-        return json.getBytes();
     }
 }
