@@ -1,7 +1,7 @@
 package com.spring.tester1.controller;
 
-import com.spring.tester1.model.Product;
-import com.spring.tester1.utils.RestTemplateHelper;
+import com.spring.tester1.controller.model.Product;
+import com.spring.tester1.RestTemplateHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -1,7 +1,7 @@
 package com.spring.tester2.advice;
 
-import com.spring.tester2.exception.ProductExistException;
-import com.spring.tester2.exception.TestHandlerException;
+import com.spring.tester2.advice.exception.ProductExistException;
+import com.spring.tester2.advice.exception.TestHandlerException;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

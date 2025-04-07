@@ -1,9 +1,9 @@
-package com.spring.tester1.utils;
+package com.spring.tester1;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.tester1.exception.InternalServerException;
-import com.spring.tester1.model.Product;
+import com.spring.tester1.advice.exception.InternalServerException;
+import com.spring.tester1.controller.model.Product;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

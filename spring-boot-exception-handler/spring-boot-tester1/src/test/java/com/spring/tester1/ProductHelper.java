@@ -2,7 +2,7 @@ package com.spring.tester1;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.tester1.model.Product;
+import com.spring.tester1.controller.model.Product;
 
 public class ProductHelper {
 

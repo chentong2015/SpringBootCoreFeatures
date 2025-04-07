@@ -1,8 +1,8 @@
 package com.spring.tester2.controller;
 
-import com.spring.tester2.exception.ProductExistException;
-import com.spring.tester2.exception.TestHandlerException;
-import com.spring.tester2.model.Product;
+import com.spring.tester2.advice.exception.ProductExistException;
+import com.spring.tester2.advice.exception.TestHandlerException;
+import com.spring.tester2.controller.model.Product;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

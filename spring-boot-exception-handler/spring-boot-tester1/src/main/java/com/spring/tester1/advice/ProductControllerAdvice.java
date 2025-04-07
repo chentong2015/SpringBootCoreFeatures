@@ -1,6 +1,6 @@
 package com.spring.tester1.advice;
 
-import com.spring.tester1.exception.InternalServerException;
+import com.spring.tester1.advice.exception.InternalServerException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

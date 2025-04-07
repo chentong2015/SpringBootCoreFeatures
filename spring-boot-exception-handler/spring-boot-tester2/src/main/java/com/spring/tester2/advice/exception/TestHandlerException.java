@@ -1,4 +1,4 @@
-package com.spring.tester2.exception;
+package com.spring.tester2.advice.exception;
 
 // TODO. 设置Controller抛出的异常对应的HttpStatus状态码
 // 一旦异常带有状态码，则ResponseEntity<>中body的的数据如下

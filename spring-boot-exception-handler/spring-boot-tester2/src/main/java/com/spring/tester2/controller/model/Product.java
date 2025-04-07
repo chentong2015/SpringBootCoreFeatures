@@ -1,4 +1,4 @@
-package com.spring.tester2.model;
+package com.spring.tester2.controller.model;
 
 import java.io.Serializable;
 

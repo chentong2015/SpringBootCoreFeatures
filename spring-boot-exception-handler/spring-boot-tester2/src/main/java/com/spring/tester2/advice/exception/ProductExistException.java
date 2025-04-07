@@ -1,4 +1,4 @@
-package com.spring.tester2.exception;
+package com.spring.tester2.advice.exception;
 
 public class ProductExistException extends RuntimeException {
 
