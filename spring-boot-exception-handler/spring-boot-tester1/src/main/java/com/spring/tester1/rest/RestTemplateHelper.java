@@ -1,4 +1,4 @@
-package com.spring.tester1;
+package com.spring.tester1.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,6 +7,8 @@ import com.spring.tester1.controller.model.Product;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 public class RestTemplateHelper {
@@ -22,13 +24,13 @@ public class RestTemplateHelper {
     }
 
     // TODO. 使用自定义注入的Bean对象发送POST请求
-    public static String sendPostRequest(RestTemplate restTemplate, String url, Product product)  {
+    public static ResponseEntity<String> sendPostRequest(RestTemplate restTemplate, String url, Product product)  {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         String jsonBody = parseJsonBody(product);
 
         HttpEntity<String> request = new HttpEntity<>(jsonBody, headers);
-        return restTemplate.postForObject(url, request, String.class);
+        return restTemplate.postForEntity(url, request, String.class);
     }
 
     // 抛出的InternalServerException异常将被ControllerAdvice处理

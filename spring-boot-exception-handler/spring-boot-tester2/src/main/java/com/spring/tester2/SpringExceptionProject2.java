@@ -1,12 +1,12 @@
-package com.spring.tester1;
+package com.spring.tester2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootTester1Application {
+public class SpringExceptionProject2 {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootTester1Application.class, args);
+        SpringApplication.run(SpringExceptionProject2.class, args);
     }
 }

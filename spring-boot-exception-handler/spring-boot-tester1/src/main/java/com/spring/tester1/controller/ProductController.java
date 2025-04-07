@@ -1,8 +1,7 @@
 package com.spring.tester1.controller;
 
 import com.spring.tester1.controller.model.Product;
-import com.spring.tester1.RestTemplateHelper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.spring.tester1.rest.RestTemplateHelper;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +14,6 @@ public class ProductController {
 
     private final RestTemplate restTemplate;
 
-    @Autowired
     public ProductController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
@@ -23,14 +21,12 @@ public class ProductController {
     @PostMapping("/products/{id}")
     public ResponseEntity<String> insertProduct(@PathVariable("id") String id, @RequestBody Product product) {
         String url = "localhost:5679/products/" + id;
-        String response = RestTemplateHelper.sendPostRequest(restTemplate, url, product);
-        return ResponseEntity.ok().body(response);
+        return RestTemplateHelper.sendPostRequest(restTemplate, url, product);
     }
 
     @PostMapping("/products/test/{id}")
     public ResponseEntity<String> testInsertProduct(@PathVariable("id") String id, @RequestBody Product product) {
         String url = "localhost:5679/products/test/" + id;
-        String response = RestTemplateHelper.sendPostRequest(restTemplate, url, product);
-        return ResponseEntity.ok().body(response);
+        return RestTemplateHelper.sendPostRequest(restTemplate, url, product);
     }
 }

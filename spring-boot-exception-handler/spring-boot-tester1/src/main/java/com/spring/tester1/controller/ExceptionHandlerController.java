@@ -1,8 +1,7 @@
 package com.spring.tester1.controller;
 
 import com.spring.tester1.controller.model.Product;
-import com.spring.tester1.RestTemplateHelper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.spring.tester1.rest.RestTemplateHelper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +14,6 @@ public class ExceptionHandlerController {
 
     private final RestTemplate restTemplate;
 
-    @Autowired
     public ExceptionHandlerController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
@@ -24,14 +22,12 @@ public class ExceptionHandlerController {
     @PostMapping("/products/exception/{id}")
     public ResponseEntity<String> testInsertProductException(@PathVariable("id") String id, @RequestBody Product product) {
         String url = "http://localhost:5679/products/exception/" + id;
-        String response = RestTemplateHelper.sendPostRequest(restTemplate, url, product);
-        return ResponseEntity.ok().body(response);
+        return RestTemplateHelper.sendPostRequest(restTemplate, url, product);
     }
 
     @PostMapping("/products/handler/{id}")
     public ResponseEntity<String> insertProduct(@PathVariable("id") String id, @RequestBody Product product) {
         String url = "http://localhost:5679/products/handler/" + id;
-        String response = RestTemplateHelper.sendPostRequest(restTemplate, url, product);
-        return ResponseEntity.ok().body(response);
+        return RestTemplateHelper.sendPostRequest(restTemplate, url, product);
     }
 }
