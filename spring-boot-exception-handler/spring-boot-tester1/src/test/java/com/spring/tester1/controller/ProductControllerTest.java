@@ -20,7 +20,6 @@ class ProductControllerTest {
 
     @Test
     void testInsertProductWithFeignException() throws Exception {
-
         mockMvc.perform(post("/products/test/2")
                         .content(ProductHelper.getRequestBodyContent())
                         .contentType(MediaType.APPLICATION_JSON))
@@ -32,7 +31,6 @@ class ProductControllerTest {
     // 后端的server没有启动，所以无法测试
     @Test
     void testInsertProductWithExceptionAndResponseBody() throws Exception {
-
         mockMvc.perform(post("/products/test/2")
                         .content(ProductHelper.getRequestBodyContent())
                         .contentType(MediaType.APPLICATION_JSON))
@@ -43,7 +41,6 @@ class ProductControllerTest {
     // 补充测试覆盖率，设置返回的ResponseEntity的另一个条件
     @Test
     void testInsertProductWithExceptionWithoutResponseBody() throws Exception {
-
         mockMvc.perform(post("/products/test/2")
                         .content(ProductHelper.getRequestBodyContent())
                         .contentType(MediaType.APPLICATION_JSON))

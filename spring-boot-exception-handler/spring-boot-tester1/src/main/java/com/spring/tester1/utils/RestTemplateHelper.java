@@ -14,6 +14,7 @@ public class RestTemplateHelper {
     private RestTemplateHelper() {
     }
 
+    // TODO. 使用自定义注入的Bean对象发送GET请求: 不带参数
     public static String sendGetRequest(RestTemplate restTemplate, String url) {
         String response = restTemplate.getForObject(url, String.class);
         System.out.println(response);
@@ -21,14 +22,16 @@ public class RestTemplateHelper {
     }
 
     // TODO. 使用自定义注入的Bean对象发送POST请求
-    // 抛出的InternalServerException异常将被ControllerAdvice处理
     public static String sendPostRequest(RestTemplate restTemplate, String url, Product product)  {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> request = new HttpEntity<>(parseJsonBody(product), headers);
+        String jsonBody = parseJsonBody(product);
+
+        HttpEntity<String> request = new HttpEntity<>(jsonBody, headers);
         return restTemplate.postForObject(url, request, String.class);
     }
 
+    // 抛出的InternalServerException异常将被ControllerAdvice处理
     private static String parseJsonBody(Product product) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {

@@ -10,7 +10,7 @@ import org.springframework.web.client.HttpClientErrorException;
 @ControllerAdvice
 public class ProductControllerAdvice {
 
-    // TODO. 处理RestTemplate请求的异常: 将异常的信息等效的抛出
+    // TODO. 处理RestTemplate请求的异常: 将异常信息等效抛出
     @ExceptionHandler(HttpClientErrorException.class)
     public ResponseEntity<String> handleHttpClientErrorException(HttpClientErrorException exception) {
         String detailsMessage = exception.getMessage();
@@ -24,7 +24,7 @@ public class ProductControllerAdvice {
     // TODO. 处理Controller请求抛出的异常异常
     @ExceptionHandler(value = InternalServerException.class)
     public ResponseEntity<Object> handleInternalServerException(InternalServerException exception) {
-        System.out.println("Starter1: internal Server exception !!");
+        System.out.println("Internal Server exception !!");
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
