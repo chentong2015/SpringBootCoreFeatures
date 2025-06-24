@@ -10,6 +10,7 @@
         <module name="spring-boot-thymeleaf" />
         <module name="springdoc-openapi-swagger-ui" />
         <module name="spring-boot-tester1" />
+        <module name="spring-boot-async-task" />
         <module name="spring-boot-caching" />
         <module name="spring-boot-tester2" />
         <module name="spring-boot-upload-download-files" />
