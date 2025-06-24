@@ -15,7 +15,6 @@
         <module>spring-boot-file-uploader</module>
         <module>spring-boot-thymeleaf</module>
         <module>springdoc-openapi-swagger-ui</module>
-        <module>website-projects</module>
     </modules>
 
     <properties>

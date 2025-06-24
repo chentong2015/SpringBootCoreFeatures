@@ -8,21 +8,22 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring-boot-thymeleaf" />
-        <module name="retail_experience_admin" />
         <module name="springdoc-openapi-swagger-ui" />
-        <module name="retail_experience_server" />
         <module name="spring-boot-tester1" />
-        <module name="website-projects" />
         <module name="spring-boot-caching" />
         <module name="spring-boot-tester2" />
         <module name="spring-boot-upload-download-files" />
-        <module name="blog-website" />
-        <module name="retail_experience_client" />
         <module name="spring-boot-upload-download-example" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="blog-website" target="17" />
+      <module name="ecommerce-website" target="17" />
+      <module name="retail_experience_admin" target="11" />
+      <module name="retail_experience_client" target="11" />
+      <module name="retail_experience_server" target="11" />
       <module name="spring-boot-project" target="17" />
+      <module name="website-projects" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
