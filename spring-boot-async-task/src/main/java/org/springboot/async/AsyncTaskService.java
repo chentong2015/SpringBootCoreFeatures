@@ -29,6 +29,5 @@ public class AsyncTaskService {
         int duration = new Random().nextInt(10, 30);
         Thread.sleep(duration * 1000L);
         System.out.println(calledName + ": Finish AsyncTask by: " + threadName);
-        System.out.println("--------------------");
     }
 }
