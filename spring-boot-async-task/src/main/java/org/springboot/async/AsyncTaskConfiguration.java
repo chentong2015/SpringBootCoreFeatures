@@ -26,6 +26,10 @@ public class AsyncTaskConfiguration {
     @ConfigurationProperties(prefix = "import.thread-pool")
     public ThreadPoolTaskExecutor getAsyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+
+        // Throw an Exception when trying to queue additional import
+        // so that we could forward error to end user, that there too many imports in progress
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
         return executor;
     }
 }
