@@ -1,5 +1,6 @@
 package org.springboot.async;
 
+import org.springboot.async.service.AsyncTaskService;
 import org.springframework.stereotype.Component;
 
 @Component

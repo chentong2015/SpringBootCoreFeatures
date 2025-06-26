@@ -1,15 +1,13 @@
-package org.springboot.async;
+package org.springboot.async.service;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
 @Service
-@EnableAsync
 public class AsyncTaskService {
 
     // TODO. 检测线程池的注入和配置信息
