@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add note</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/5.1.2/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/main.css}"/>
+</head>
+<div style="text-align: center;">
+    <h1>Create Note</h1>
+</div>
+<body>
+<h3>Attach a file from local storage</h3>
+<form th:action="@{/notes/add_note}" th:object="${note}" method="post" enctype="multipart/form-data">
+    <div>
+        <label>
+            <input type="text" th:field="*{topic}" placeholder="Topic">
+        </label>
+    </div>
+    <div>
+        <label>
+            <textarea name="text" cols="30" rows="4" th:field="*{noteText}" placeholder="Text"></textarea>
+        </label>
+    </div>
+    <p class="text-muted col-xs-10">Add file</p>
+    <div>
+        <input type="file" name="attachment" placeholder="Attachment"/>
+    </div>
+    <button type="submit">ADD</button>
+</form>
+<br>
+<h3>Attach a file by link</h3>
+<form th:action="@{/notes/add_note_link}" th:object="${note}" method="post">
+    <div>
+        <label>
+            <input type="text" th:field="*{topic}" placeholder="Topic">
+        </label>
+    </div>
+    <div>
+        <label>
+            <textarea name="text" cols="30" rows="4" th:field="*{noteText}" placeholder="Text"></textarea>
+        </label>
+    </div>
+    <label>
+        <input type="text" th:field="*{link}" placeholder="Link to the file">
+    </label>
+    <button type="submit">ADD</button>
+</form>
+<br>
+<form style="display: inline-block;"
+      th:action="@{/notes}">
+    <button type="submit">Notes</button>
+</form>
+<script type="text/javascript" src="http://bootstrap-repository.com/io/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>
