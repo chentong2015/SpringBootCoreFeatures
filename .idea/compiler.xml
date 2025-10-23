@@ -7,7 +7,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="spring-boot-events-driven" />
         <module name="springdoc-openapi-swagger-ui" />
         <module name="spring-boot-web-thymeleaf" />
         <module name="spring-boot-tester1" />
@@ -24,6 +23,7 @@
       <module name="retail_experience_admin" target="11" />
       <module name="retail_experience_client" target="11" />
       <module name="retail_experience_server" target="11" />
+      <module name="spring-boot-events-driven" target="17" />
       <module name="spring-boot-project" target="17" />
       <module name="website-projects" target="17" />
     </bytecodeTargetLevel>

@@ -12,7 +12,6 @@
     <modules>
         <module>spring-boot-async-task</module>
         <module>spring-boot-caching</module>
-        <module>spring-boot-events-driven</module>
         <module>spring-boot-exception-handler</module>
         <module>spring-boot-file-uploader</module>
         <module>spring-boot-web-thymeleaf</module>

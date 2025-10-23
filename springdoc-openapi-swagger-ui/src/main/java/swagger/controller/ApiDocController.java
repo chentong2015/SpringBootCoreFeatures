@@ -12,10 +12,10 @@ import swagger.model.Product;
 
 import java.util.List;
 
-// TODO. 使用Swagger注解来丰富API的说明
 @RestController
 public class ApiDocController {
 
+    // TODO. 使用Swagger注解来丰富API的说明 => 可定义到上层接口中
     @Operation(summary = "GET", description = "View list of users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved list"),
@@ -35,7 +35,7 @@ public class ApiDocController {
         return new ResponseEntity<>("Create OK", HttpStatus.OK);
     }
 
-    // API Doc会自动创建返回类型的描述
+    // TODO. API Doc会自动创建返回类型的描述(约束限制)
     @Operation(summary = "GET", description = "Fetch Product Information")
     @GetMapping("/product")
     public ResponseEntity<Product> fetchProduct() {

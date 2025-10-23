@@ -8,8 +8,8 @@ public class DecoupledLogicSetup {
 
     private final SpringResourceTemplateResolver templateResolver;
 
-    // Enable the decoupled template logic
-    // setUseDecoupledLogic() 这里设置的属性或可通过application.properties来设置
+    // 属性或可通过application.properties来设置
+    // setUseDecoupledLogic(): Enable the decoupled template logic
     public DecoupledLogicSetup(SpringResourceTemplateResolver templateResolver) {
         this.templateResolver = templateResolver;
         this.templateResolver.setUseDecoupledLogic(true);

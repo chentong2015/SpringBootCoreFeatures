@@ -1,0 +1,9 @@
+TODO: 监测当地语言和使用者的IP地址来设置对应的语言环境
+Spring Thymeleaf 国际化(i18n)的设置
+1. 取消硬编码，支持多语言的UI显示以及后台的字符串messages
+2. 通过配置文件设置，不需要重新编译，而是动态的获取
+
+Thymeleaf支持通过#{localText}来获取指定的local text ===> 直接从前端提取信息
+默认的messages file位于/src/main/resources/
+- messages.properties    默认的语言locale
+- messages_XX.properties 特定的语言local
