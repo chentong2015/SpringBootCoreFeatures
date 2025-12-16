@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-boot-async-task</module>
         <module>spring-boot-caching</module>
         <module>spring-boot-exception-handler</module>
         <module>spring-boot-file-uploader</module>
