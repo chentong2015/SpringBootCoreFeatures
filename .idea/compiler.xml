@@ -14,13 +14,12 @@
         <module name="caching" />
         <module name="webpage-thymeleaf" />
         <module name="spring-boot-upload-download-example" />
+        <module name="openapi-swagger-doc" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="blog-website" target="17" />
       <module name="ecommerce-website" target="17" />
-      <module name="exception-handler" target="17" />
-      <module name="openapi-swagger-doc" target="17" />
       <module name="retail_experience_admin" target="11" />
       <module name="retail_experience_client" target="11" />
       <module name="retail_experience_server" target="11" />
