@@ -3,18 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.example</groupId>
+        <artifactId>SpringBootCoreFeatures</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-    <groupId>org.example</groupId>
-    <artifactId>SpringBootCoreFeatures</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>upload-downloader</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>caching</module>
-        <module>exception-handler</module>
-        <module>upload-downloader</module>
-        <module>webpage-thymeleaf</module>
-        <module>openapi-swagger-doc</module>
+        <module>spring-boot-upload-download-example</module>
+        <module>spring-boot-upload-download-files</module>
     </modules>
 
     <properties>
@@ -22,4 +22,5 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
 </project>

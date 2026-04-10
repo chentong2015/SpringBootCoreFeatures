@@ -1,0 +1,5 @@
+Retry重试机制: 自定义失败和重试的行为，控制代码执行流程
+<dependency>
+    <groupId>org.springframework.retry</groupId>
+    <artifactId>spring-retry</artifactId>
+</dependency>
