@@ -8,12 +8,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring-boot-tester1" />
+        <module name="upload-download-demo" />
+        <module name="upload-download-storage" />
         <module name="spring-boot-tester2" />
-        <module name="spring-boot-upload-download-files" />
         <module name="doc-openapi-swagger-ui" />
         <module name="caching" />
         <module name="webpage-thymeleaf" />
-        <module name="spring-boot-upload-download-example" />
         <module name="openapi-swagger-doc" />
       </profile>
     </annotationProcessing>

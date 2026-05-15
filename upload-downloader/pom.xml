@@ -13,8 +13,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-boot-upload-download-example</module>
-        <module>spring-boot-upload-download-files</module>
+        <module>upload-download-demo</module>
+        <module>upload-download-storage</module>
     </modules>
 
     <properties>
