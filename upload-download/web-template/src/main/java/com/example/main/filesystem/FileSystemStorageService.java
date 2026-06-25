@@ -1,8 +1,8 @@
-package com.example.main.storage;
+package com.example.main.filesystem;
 
-import com.example.main.exception.StorageException;
+import com.example.main.exception.FileStorageException;
 import com.example.main.exception.StorageFileNotFoundException;
-import com.example.main.property.StorageProperties;
+import com.example.main.property.FileStorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -21,22 +21,21 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 @Service
-public class FileSystemStorageService implements StorageService {
+public class FileSystemStorageService implements FilesystemService {
 
-    private final Path rootLocation;
+    private final Path fileSystemLocation;
 
     @Autowired
-    public FileSystemStorageService(StorageProperties properties) {
-        this.rootLocation = Paths.get(properties.getLocation());
+    public FileSystemStorageService(FileStorageProperties properties) {
+        this.fileSystemLocation = Paths.get(properties.getDrive()).toAbsolutePath().normalize();
     }
 
     @Override
     public void init() {
         try {
-            // Java NIO直接创建path路径的目录
-            Files.createDirectories(rootLocation);
+            Files.createDirectories(fileSystemLocation);
         } catch (IOException e) {
-            throw new StorageException("Could not initialize storage", e);
+            throw new FileStorageException("Could not initialize storage", e);
         }
     }
 
@@ -44,30 +43,31 @@ public class FileSystemStorageService implements StorageService {
     public void store(MultipartFile file) {
         try {
             if (file.isEmpty()) {
-                throw new StorageException("Failed to store empty file.");
+                throw new FileStorageException("Failed to store empty file.");
             }
+
             Path basicPath = Paths.get(Objects.requireNonNull(file.getOriginalFilename()));
-            Path destinationFile = rootLocation.resolve(basicPath).normalize().toAbsolutePath();
-            if (!destinationFile.getParent().equals(rootLocation.toAbsolutePath())) {
-                // This is a security check
-                throw new StorageException("Cannot store file outside current directory.");
+            Path destinationFile = fileSystemLocation.resolve(basicPath).normalize().toAbsolutePath();
+            if (!destinationFile.getParent().equals(fileSystemLocation.toAbsolutePath())) {
+                throw new FileStorageException("Security check: Cannot store file outside current directory.");
             }
-            // 存储的时候，替换原来存在的
+
             try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
             }
         } catch (IOException e) {
-            throw new StorageException("Failed to store file.", e);
+            throw new FileStorageException("Failed to store file.", e);
         }
     }
 
     @Override
     public Stream<Path> loadAll() {
         try {
-            return Files.walk(rootLocation, 1).filter(path -> !path.equals(rootLocation))
-                    .map(rootLocation::relativize);
+            return Files.walk(fileSystemLocation, 1)
+                    .filter(path -> !path.equals(fileSystemLocation))
+                    .map(fileSystemLocation::relativize);
         } catch (IOException e) {
-            throw new StorageException("Failed to read stored files", e);
+            throw new FileStorageException("Failed to read stored files", e);
         }
     }
 
@@ -88,12 +88,11 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public Path load(String filename) {
-        return rootLocation.resolve(filename);
+        return fileSystemLocation.resolve(filename);
     }
 
-    // 递归删除指定Root File路径下的所有文件和目录
     @Override
     public void deleteAll() {
-        FileSystemUtils.deleteRecursively(rootLocation.toFile());
+        FileSystemUtils.deleteRecursively(fileSystemLocation.toFile());
     }
 }

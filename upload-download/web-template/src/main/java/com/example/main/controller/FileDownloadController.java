@@ -23,7 +23,8 @@ public class FileDownloadController {
         this.fileStorageService = fileStorageService;
     }
 
-    // 根据特定名称从文件系统中下载文件资源
+    // TODO. 直接在流量器输入指定的路径, 根据文件名称下载
+    // http://localhost:8080/v1/file/download/test.txt
     @GetMapping("/download/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable("fileName") String fileName, HttpServletRequest request) {
         Resource resource = fileStorageService.loadFileResourceByName(fileName);

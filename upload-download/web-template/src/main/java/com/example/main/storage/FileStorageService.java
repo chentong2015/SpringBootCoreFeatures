@@ -1,8 +1,8 @@
 package com.example.main.storage;
 
 import com.example.main.exception.FileStorageException;
-import com.example.main.exception.MyFileNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.main.exception.StorageFileNotFoundException;
+import com.example.main.property.FileStorageProperties;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class FileStorageService {
     private final Path fileStorageLocation;
 
     public FileStorageService(FileStorageProperties fileStorageProperties) {
-        this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath().normalize();
+        this.fileStorageLocation = Paths.get(fileStorageProperties.getDrive()).toAbsolutePath().normalize();
         try {
             if (Files.notExists(this.fileStorageLocation)) {
                 Files.createDirectory(this.fileStorageLocation);
@@ -64,10 +64,10 @@ public class FileStorageService {
             if (resource.exists()) {
                 return resource;
             } else {
-                throw new MyFileNotFoundException("File not found " + fileName);
+                throw new StorageFileNotFoundException("File not found " + fileName);
             }
         } catch (MalformedURLException ex) {
-            throw new MyFileNotFoundException("File not found " + fileName, ex);
+            throw new StorageFileNotFoundException("File not found " + fileName, ex);
         }
     }
 }

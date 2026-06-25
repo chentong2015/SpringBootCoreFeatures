@@ -14,7 +14,7 @@
 
     <modules>
         <module>web-template</module>
-        <module>filesystem-storage</module>
+        <module>storage</module>
     </modules>
 
     <properties>

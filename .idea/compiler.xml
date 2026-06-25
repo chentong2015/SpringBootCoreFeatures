@@ -14,7 +14,6 @@
         <module name="webpage-thymeleaf" />
         <module name="web-template" />
         <module name="openapi-swagger-doc" />
-        <module name="filesystem-storage" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -26,6 +25,7 @@
       <module name="spring-boot-async-task" target="17" />
       <module name="spring-boot-events-driven" target="17" />
       <module name="spring-boot-project" target="17" />
+      <module name="storage" target="11" />
       <module name="website-projects" target="17" />
     </bytecodeTargetLevel>
   </component>
