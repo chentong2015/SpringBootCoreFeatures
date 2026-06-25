@@ -5,7 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@RestController("/v1/file")
+@RestController
+@RequestMapping("/v1/file")
 public class FileUploadController {
 
     private final FileStorageService fileStorageService;

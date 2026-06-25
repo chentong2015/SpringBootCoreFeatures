@@ -8,11 +8,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-@RestController("/v1/file")
+@RestController
+@RequestMapping("/v1/file")
 public class FileDownloadController {
 
     private final FileStorageService fileStorageService;
@@ -23,7 +25,7 @@ public class FileDownloadController {
 
     // 根据特定名称从文件系统中下载文件资源
     @GetMapping("/download/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+    public ResponseEntity<Resource> downloadFile(@PathVariable("fileName") String fileName, HttpServletRequest request) {
         Resource resource = fileStorageService.loadFileResourceByName(fileName);
 
         String contentType = null;
