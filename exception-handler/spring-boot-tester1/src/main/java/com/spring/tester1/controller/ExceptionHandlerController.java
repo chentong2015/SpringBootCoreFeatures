@@ -1,6 +1,6 @@
 package com.spring.tester1.controller;
 
-import com.spring.tester1.controller.model.Product;
+import com.spring.tester1.model.Product;
 import com.spring.tester1.rest.RestTemplateHelper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

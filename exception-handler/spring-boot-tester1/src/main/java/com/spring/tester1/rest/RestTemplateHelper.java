@@ -3,12 +3,11 @@ package com.spring.tester1.rest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.tester1.advice.exception.InternalServerException;
-import com.spring.tester1.controller.model.Product;
+import com.spring.tester1.model.Product;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 public class RestTemplateHelper {
