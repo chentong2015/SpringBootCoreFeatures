@@ -15,7 +15,7 @@ function renderList(files) {
     const ul = document.getElementById('fileList');
     ul.innerHTML = '';
     if (!files || files.length === 0) {
-        ul.innerHTML = '<li>No files</li>';
+        ul.innerHTML = '-- No files --';
         return;
     }
 

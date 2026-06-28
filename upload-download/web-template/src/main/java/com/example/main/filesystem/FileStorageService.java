@@ -1,4 +1,4 @@
-package com.example.main.storage;
+package com.example.main.filesystem;
 
 import com.example.main.exception.FileStorageException;
 import com.example.main.exception.StorageFileNotFoundException;

@@ -1,6 +1,6 @@
 package com.example.main.controller;
 
-import com.example.main.storage.FileStorageService;
+import com.example.main.filesystem.FileStorageService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -29,17 +29,17 @@ public class FileDownloadController {
     public ResponseEntity<Resource> downloadFile(@PathVariable("fileName") String fileName, HttpServletRequest request) {
         Resource resource = fileStorageService.loadFileResourceByName(fileName);
 
+        // 确定真实文件的文件类型
         String contentType = null;
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         } catch (IOException ex) {
             System.out.println("Could not determine file type.");
         }
-
-        // Fallback to the default content type if type could not be determined
         if (contentType == null) {
             contentType = "application/octet-stream";
         }
+
         String headerValues = "attachment; filename=\"" + resource.getFilename() + "\"";
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))

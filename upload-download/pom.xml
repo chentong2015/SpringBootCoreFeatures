@@ -14,7 +14,6 @@
 
     <modules>
         <module>web-template</module>
-        <module>storage</module>
     </modules>
 
     <properties>

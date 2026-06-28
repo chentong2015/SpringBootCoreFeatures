@@ -58,10 +58,10 @@ function uploadMultipleFiles(files) {
 function handleUploadResponse(xmlHttpRequest) {
     if (xmlHttpRequest.status === 200) {
         fileUploadError.style.display = "none";
-        fileUploadSuccess.innerHTML = "<p> Success ! " + xmlHttpRequest.responseText + "</p>";
+        fileUploadSuccess.innerHTML = "<b> Success ! " + xmlHttpRequest.responseText + "</b>";
         fileUploadSuccess.style.display = "block";
     } else {
         fileUploadSuccess.style.display = "none";
-        fileUploadError.innerHTML = "Upload failed";
+        fileUploadError.innerHTML = "<b> Error: Upload failed </b>";
     }
 }
