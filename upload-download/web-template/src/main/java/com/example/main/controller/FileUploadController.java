@@ -24,10 +24,10 @@ public class FileUploadController {
 
     @PostMapping("/upload/multiple")
     public ResponseEntity<String> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        String responseBody = "Finish upload filenames: ";
+        String responseBody = "Finish upload filenames: \n";
         for (MultipartFile file: files) {
             String filename = this.fileStorageService.storeFile(file);
-            responseBody.concat(filename + "; ");
+            responseBody = responseBody.concat(filename + ";\n");
         }
         return ResponseEntity.ok().body(responseBody);
     }

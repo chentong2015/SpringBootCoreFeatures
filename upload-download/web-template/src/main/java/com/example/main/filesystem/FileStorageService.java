@@ -41,7 +41,7 @@ public class FileStorageService {
                 .toList();
     }
 
-    // TODO. 上传相同文件名自动覆盖同名文件(或追加随机ID)
+    // 上传相同文件自动覆盖同名文件(或追加随机ID)
     public String storeFile(MultipartFile multipartFile) {
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         try {
@@ -57,6 +57,7 @@ public class FileStorageService {
         }
     }
 
+    // 获取下载文件的资源
     public Resource loadFileResourceByName(String fileName) {
         try {
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();

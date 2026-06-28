@@ -29,7 +29,7 @@ public class FileDownloadController {
     public ResponseEntity<Resource> downloadFile(@PathVariable("fileName") String fileName, HttpServletRequest request) {
         Resource resource = fileStorageService.loadFileResourceByName(fileName);
 
-        // 确定真实文件的文件类型
+        // 确定Media媒体文件类型 text/plain, application/xml, application/json
         String contentType = null;
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
@@ -40,6 +40,7 @@ public class FileDownloadController {
             contentType = "application/octet-stream";
         }
 
+        // 确保后端设置响应头, 以便浏览器弹出下载(而非打开文件)
         String headerValues = "attachment; filename=\"" + resource.getFilename() + "\"";
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
