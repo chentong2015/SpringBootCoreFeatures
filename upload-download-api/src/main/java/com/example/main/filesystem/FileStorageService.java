@@ -33,11 +33,13 @@ public class FileStorageService {
         }
     }
 
-    // 获取所有能够下载的文件名称
-    public List<String> getAllFilenames() throws IOException {
-        return Files.walk(fileStorageLocation)
+    // walk将会获取指定目录下的所有文件
+    public List<String> getAllDownloadFiles() throws IOException {
+        Path downloadFolder = this.fileStorageLocation.resolve("download");
+        return Files.walk(downloadFolder)
                 .filter(Files::isRegularFile)
                 .map(path -> path.getFileName().toString())
+                .sorted()
                 .toList();
     }
 

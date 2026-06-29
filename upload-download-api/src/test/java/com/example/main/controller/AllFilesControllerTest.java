@@ -28,7 +28,7 @@ public class AllFilesControllerTest {
     @Test
     public void shouldListAllFiles() throws Exception {
         List<String> filenames = List.of("first.txt", "second.txt");
-        BDDMockito.given(this.fileStorageService.getAllFilenames()).willReturn(filenames);
+        BDDMockito.given(this.fileStorageService.getAllDownloadFiles()).willReturn(filenames);
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/v1/file/all"))
                 .andExpect(MockMvcResultMatchers.status().isOk())

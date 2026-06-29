@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/file")
@@ -21,6 +22,16 @@ public class FileDownloadController {
 
     public FileDownloadController(FileStorageService fileStorageService) {
         this.fileStorageService = fileStorageService;
+    }
+
+    @GetMapping("/download/all")
+    public ResponseEntity<List<String>> getAllDownloadFiles() {
+        try {
+            List<String> fileList = this.fileStorageService.getAllDownloadFiles();
+            return ResponseEntity.ok().body(fileList);
+        } catch (IOException exception) {
+            throw new RuntimeException("Failed to get all filenames");
+        }
     }
 
     // TODO. 直接在流量器输入指定的路径, 根据文件名称下载

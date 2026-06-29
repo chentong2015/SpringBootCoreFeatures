@@ -57,13 +57,13 @@ public class FileStorageChunkService {
     public void mergeChunks(String fileId) {
         Path chunkFolder = this.fileStorageLocation.resolve(fileId);
         String filename = fileId.substring(0, fileId.lastIndexOf("-"));
-        Path mergeChunkFile = this.fileStorageLocation.resolve(filename);
+        Path downloadFilepath = this.fileStorageLocation.resolve("download").resolve(filename);
         try {
             List<String> chunkFiles = Files.walk(chunkFolder)
                     .filter(Files::isRegularFile)
                     .map(path -> path.getFileName().toString())
                     .toList();
-            try (BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(mergeChunkFile))) {
+            try (BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(downloadFilepath))) {
                 for (String chunk : chunkFiles) {
                     mergeSingleChunk(bos, chunkFolder, chunk);
                 }
