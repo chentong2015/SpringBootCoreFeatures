@@ -19,7 +19,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/v1/file")
 public class FileDownloadController {
@@ -48,10 +47,12 @@ public class FileDownloadController {
         object.put(1, "value12");
         object.put(2, "value14");
         object.put(3, "value17");
+
         String fileName = "test.json";
+        String attachment =  String.format("attachment; filename=\"%s\"", fileName);
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
-                .header(HttpHeaders.CONTENT_DISPOSITION, String.format("attachment; filename=\"%s\"", fileName))
+                .header(HttpHeaders.CONTENT_DISPOSITION, attachment)
                 .body(objectMapper.writeValueAsString(object));
     }
 
@@ -63,10 +64,10 @@ public class FileDownloadController {
         String contentType = parseContentType(resource, request);
 
         // 确保后端设置响应头, 以便浏览器弹出下载(而非打开文件)
-        String headerValues = "attachment; filename=\"" + resource.getFilename() + "\"";
+        String attachment = "attachment; filename=\"" + resource.getFilename() + "\"";
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, headerValues)
+                .header(HttpHeaders.CONTENT_DISPOSITION, attachment)
                 .body(resource);
     }
 

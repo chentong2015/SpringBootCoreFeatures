@@ -2,6 +2,7 @@ package com.example.main.service;
 
 import com.example.main.exception.FileStorageException;
 import com.example.main.helper.FileFolderHelper;
+import com.example.main.helper.FileValidatorHelper;
 import com.example.main.property.FileStorageProperties;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
@@ -25,18 +26,20 @@ public class ChunkStorageService {
         this.rootLocation = Paths.get(fileStorageProperties.getDrive()).toAbsolutePath().normalize();
         FileFolderHelper.createFolder(this.rootLocation);
     }
- 
+
     // 基于fileId创建特定的临时目录存储chunk, 存放所有Chunk文件(基于Index坐标)
-    public String storeChunk(String fileId, int index, MultipartFile multipartFile) {
+    public String storeChunk(String fileId, int index, MultipartFile file) {
+        if (!FileValidatorHelper.isValidateFile(file)) {
+            throw new RuntimeException("Not a valid file !");
+        }
+
         Path chunkFolder = this.rootLocation.resolve(fileId);
         FileFolderHelper.createFolder(chunkFolder);
-        FileFolderHelper.isValidateFile(multipartFile);
-
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             fileName = "chunk_" + index + "_" + fileName;
             Path targetLocation = chunkFolder.resolve(fileName);
-            Files.copy(multipartFile.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             return fileName;
         } catch (IOException ex) {
             throw new FileStorageException("Could not store chunk file " + fileName, ex);

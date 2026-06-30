@@ -3,6 +3,7 @@ package com.example.main.service;
 import com.example.main.exception.FileStorageException;
 import com.example.main.exception.StorageFileNotFoundException;
 import com.example.main.helper.FileFolderHelper;
+import com.example.main.helper.FileValidatorHelper;
 import com.example.main.property.FileStorageProperties;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -30,12 +31,15 @@ public class FileStorageService {
     }
 
     // 上传相同文件自动覆盖同名文件(或追加随机ID)
-    public String storeFile(MultipartFile multipartFile) {
-        FileFolderHelper.isValidateFile(multipartFile);
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+    public String storeFile(MultipartFile file) {
+        if (!FileValidatorHelper.isValidateFile(file)) {
+            throw new RuntimeException("Not a valid file !");
+        }
+
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             Path targetLocation = this.rootLocation.resolve(fileName);
-            Files.copy(multipartFile.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             return fileName;
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);

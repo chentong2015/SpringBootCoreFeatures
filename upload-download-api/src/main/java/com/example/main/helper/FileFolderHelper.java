@@ -31,30 +31,4 @@ public class FileFolderHelper {
                 .sorted()
                 .toList();
     }
-
-    // 文件的安全控制: 扫描 / 判断名称 / 判断路径 / 解析(数据)
-    public static void isValidateFile(MultipartFile file) {
-        if (checkFileForEmptiness(file)) {
-            throw new RuntimeException("File is empty");
-        }
-
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        if (fileName.contains("..")) {
-            throw new RuntimeException("Filename contains invalid path sequence " + fileName);
-        }
-
-        if (!checkNormalNameFile(file.getResource().getFilename())) {
-            throw new RuntimeException("File has an invalid name");
-        }
-    }
-
-    private static boolean checkFileForEmptiness(MultipartFile file) {
-        return file.isEmpty();
-    }
-
-    private static boolean checkNormalNameFile(String nameFile) {
-        Pattern pattern = Pattern.compile("^[\\w\\s-—()]{1,50}\\.\\w{1,15}$");
-        Matcher matcher = pattern.matcher(nameFile);
-        return matcher.find();
-    }
 }
