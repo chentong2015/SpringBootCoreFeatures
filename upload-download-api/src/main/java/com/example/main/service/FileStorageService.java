@@ -21,17 +21,12 @@ import java.util.List;
 @Service
 public class FileStorageService {
 
-    private final Path fileStorageLocation;
+    private final Path rootLocation;
+    private static final String DOWNLOAD_FOLDER = "download";
 
     public FileStorageService(FileStorageProperties fileStorageProperties) {
-        this.fileStorageLocation = Paths.get(fileStorageProperties.getDrive()).toAbsolutePath().normalize();
-        FileFolderHelper.createFolder(this.fileStorageLocation);
-    }
-
-    // walk将会获取指定目录下的所有文件
-    public List<String> getAllDownloadFiles() throws IOException {
-        Path downloadFolder = this.fileStorageLocation.resolve("download");
-        return FileFolderHelper.getFilenamesUnderFolder(downloadFolder);
+        this.rootLocation = Paths.get(fileStorageProperties.getDrive()).toAbsolutePath().normalize();
+        FileFolderHelper.createFolder(this.rootLocation);
     }
 
     // 上传相同文件自动覆盖同名文件(或追加随机ID)
@@ -39,7 +34,7 @@ public class FileStorageService {
         FileFolderHelper.isValidateFile(multipartFile);
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         try {
-            Path targetLocation = this.fileStorageLocation.resolve(fileName);
+            Path targetLocation = this.rootLocation.resolve(fileName);
             Files.copy(multipartFile.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             return fileName;
         } catch (IOException ex) {
@@ -47,10 +42,16 @@ public class FileStorageService {
         }
     }
 
+    // walk将会获取指定目录下的所有文件
+    public List<String> getAllDownloadFiles() throws IOException {
+        Path downloadFolder = this.rootLocation.resolve(DOWNLOAD_FOLDER);
+        return FileFolderHelper.getFilenamesUnderFolder(downloadFolder);
+    }
+
     // 获取下载文件的资源
     public Resource loadFileResourceByName(String fileName) {
         try {
-            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            Path filePath = this.rootLocation.resolve(DOWNLOAD_FOLDER).resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists()) {
                 return resource;

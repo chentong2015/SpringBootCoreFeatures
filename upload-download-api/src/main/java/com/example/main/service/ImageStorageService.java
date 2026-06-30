@@ -23,11 +23,11 @@ public class ImageStorageService {
 
     @Value("${multipart.image.max-size}")
     private Long maxSize;
-    private final Path fileStorageLocation;
+    private final Path rootLocation;
 
     public ImageStorageService(FileStorageProperties fileStorageProperties) {
-        this.fileStorageLocation = Paths.get(fileStorageProperties.getDrive()).toAbsolutePath().normalize();
-        FileFolderHelper.createFolder(this.fileStorageLocation);
+        this.rootLocation = Paths.get(fileStorageProperties.getDrive()).toAbsolutePath().normalize();
+        FileFolderHelper.createFolder(this.rootLocation);
     }
 
     // 用户上传Avatar图片时必须检查并验证
@@ -39,7 +39,7 @@ public class ImageStorageService {
         String uuid = UUID.randomUUID().toString();
         String extension = com.google.common.io.Files.getFileExtension(image.getOriginalFilename());
         String imageFilename = uuid + "." + extension;
-        String imagePath = String.valueOf(fileStorageLocation.resolve(imageFilename));
+        String imagePath = String.valueOf(rootLocation.resolve(imageFilename));
         try {
             image.transferTo(new File(imagePath));
             // Files.write(Paths.get(resultFileName), image.getBytes());
@@ -72,7 +72,7 @@ public class ImageStorageService {
         StringBuilder newFileNameBuilder = new StringBuilder();
         String randomName = UUID.randomUUID().toString();
         newFileNameBuilder.append(randomName);
-        Path path = Paths.get(fileStorageLocation.toString(), newFileNameBuilder.toString());
+        Path path = Paths.get(rootLocation.toString(), newFileNameBuilder.toString());
         try (InputStream in = urlReference.openStream()) {
             Files.copy(in, path);
         } catch (Exception e) {
