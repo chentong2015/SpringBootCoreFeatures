@@ -18,13 +18,13 @@ public class FileUploadController {
     @PostMapping("/upload/single")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = this.fileStorageService.storeFile(file);
-        String responseBody = "Finish upload filename: " + fileName;
+        String responseBody = "Success upload filename: " + fileName;
         return ResponseEntity.ok().body(responseBody);
     }
 
     @PostMapping("/upload/multiple")
     public ResponseEntity<String> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        String responseBody = "Finish upload filenames: \n";
+        String responseBody = "Success upload filenames: \n";
         for (MultipartFile file: files) {
             String filename = this.fileStorageService.storeFile(file);
             responseBody = responseBody.concat(filename + ";\n");

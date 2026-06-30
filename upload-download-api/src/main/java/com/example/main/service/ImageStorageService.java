@@ -39,7 +39,7 @@ public class ImageStorageService {
         String uuid = UUID.randomUUID().toString();
         String extension = com.google.common.io.Files.getFileExtension(image.getOriginalFilename());
         String imageFilename = uuid + "." + extension;
-        String imagePath = String.valueOf(fileStorageLocation.resolve("download").resolve(imageFilename));
+        String imagePath = String.valueOf(fileStorageLocation.resolve(imageFilename));
         try {
             image.transferTo(new File(imagePath));
             // Files.write(Paths.get(resultFileName), image.getBytes());
