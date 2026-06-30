@@ -1,6 +1,6 @@
 package com.example.main.controller;
 
-import com.example.main.filesystem.FileStorageService;
+import com.example.main.service.FileStorageService;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;

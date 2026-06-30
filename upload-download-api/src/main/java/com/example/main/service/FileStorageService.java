@@ -1,7 +1,8 @@
-package com.example.main.filesystem;
+package com.example.main.service;
 
 import com.example.main.exception.FileStorageException;
 import com.example.main.exception.StorageFileNotFoundException;
+import com.example.main.helper.FileFolderHelper;
 import com.example.main.property.FileStorageProperties;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -24,33 +25,20 @@ public class FileStorageService {
 
     public FileStorageService(FileStorageProperties fileStorageProperties) {
         this.fileStorageLocation = Paths.get(fileStorageProperties.getDrive()).toAbsolutePath().normalize();
-        try {
-            if (Files.notExists(this.fileStorageLocation)) {
-                Files.createDirectory(this.fileStorageLocation);
-            }
-        } catch (IOException exception) {
-            throw new FileStorageException("Could not create the directory uploaded.", exception);
-        }
+        FileFolderHelper.createFolder(this.fileStorageLocation);
     }
 
     // walk将会获取指定目录下的所有文件
     public List<String> getAllDownloadFiles() throws IOException {
         Path downloadFolder = this.fileStorageLocation.resolve("download");
-        return Files.walk(downloadFolder)
-                .filter(Files::isRegularFile)
-                .map(path -> path.getFileName().toString())
-                .sorted()
-                .toList();
+        return FileFolderHelper.getFilenamesUnderFolder(downloadFolder);
     }
 
     // 上传相同文件自动覆盖同名文件(或追加随机ID)
     public String storeFile(MultipartFile multipartFile) {
+        FileFolderHelper.isValidateFile(multipartFile);
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         try {
-            if (fileName.contains("..")) {
-                throw new FileStorageException("Filename contains invalid path sequence " + fileName);
-            }
-
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(multipartFile.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             return fileName;

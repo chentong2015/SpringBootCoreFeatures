@@ -1,6 +1,6 @@
 package com.example.main.controller;
 
-import com.example.main.filesystem.FileStorageService;
+import com.example.main.service.FileStorageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

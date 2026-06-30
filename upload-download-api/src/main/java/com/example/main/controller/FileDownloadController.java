@@ -1,6 +1,6 @@
 package com.example.main.controller;
 
-import com.example.main.filesystem.FileStorageService;
+import com.example.main.service.FileStorageService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
