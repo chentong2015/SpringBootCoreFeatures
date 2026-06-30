@@ -21,12 +21,8 @@ import java.util.UUID;
 @Service
 public class ImageStorageService {
 
-    @Value("${spring.servlet.multipart.max-file-size}")
+    @Value("${multipart.image.max-size}")
     private Long maxSize;
-
-    private final String PNG = "image/png";
-    private final String JPEG = "image/jpeg";
-
     private final Path fileStorageLocation;
 
     public ImageStorageService(FileStorageProperties fileStorageProperties) {
@@ -36,31 +32,31 @@ public class ImageStorageService {
 
     // 用户上传Avatar图片时必须检查并验证
     public void storeImage(MultipartFile image) {
-        String mimeType = image.getContentType();
-        if (!checkImageType(mimeType) || image.getSize() > maxSize) {
-            throw new RuntimeException("Mime type: " + mimeType + ". Size" + image.getSize());
-        }
-        if (!isValidFileSize(new File(Objects.requireNonNull(image.getOriginalFilename())))) {
-            throw new RuntimeException();
+        if (!checkImageType(image) || !checkImageSize(image)) {
+            throw new RuntimeException("Image format wrong");
         }
 
-        String uuidFile = UUID.randomUUID().toString();
-        String fileExtension = com.google.common.io.Files.getFileExtension(image.getOriginalFilename());
-        String resultFileName = fileStorageLocation.toString() + uuidFile + "." + fileExtension;
+        String uuid = UUID.randomUUID().toString();
+        String extension = com.google.common.io.Files.getFileExtension(image.getOriginalFilename());
+        String imageFilename = uuid + "." + extension;
+        String imagePath = String.valueOf(fileStorageLocation.resolve("download").resolve(imageFilename));
         try {
-            image.transferTo(new File(resultFileName));
+            image.transferTo(new File(imagePath));
             // Files.write(Paths.get(resultFileName), image.getBytes());
         } catch (IOException exception) {
             throw new RuntimeException("Failed to store image file");
         }
     }
 
-    private boolean checkImageType(String type) {
-        return type != null && (type.equals(JPEG) || type.equals(PNG));
+    // 设置支持的Image类型
+    private boolean checkImageType(MultipartFile image) {
+        String type = image.getContentType();
+        return type != null && (type.equals("image/png") || type.equals("image/jpeg"));
     }
 
-    private boolean isValidFileSize(File file) {
-        return (file.length() / 1024 / 1024) < 5;
+    private boolean checkImageSize(MultipartFile image) {
+        long byteSize = image.getSize();
+        return byteSize <= maxSize;
     }
 
     // TODO. 下载特定URL链接的文件, 发送请求前必须验证有效性

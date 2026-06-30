@@ -21,7 +21,7 @@ public class ImageUploadController {
     @PostMapping("/upload/single")
     public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile image) {
         this.imageStorageService.storeImage(image);
-        String responseBody = "Finish upload filename: " + image.getOriginalFilename();
+        String responseBody = "Success Finish upload image: " + image.getOriginalFilename();
         return ResponseEntity.ok().body(responseBody);
     }
 }
